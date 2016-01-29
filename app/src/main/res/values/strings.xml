@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Baboon</string>
+
+    <string name="action_settings">تنظیمات</string>
+    <string name="html_css">HTML / CSS</string>
+    <string name="node_js">Node.js</string>
+    <string name="js">JavaScript</string>
+    <string name="angularjs">AngularJS</string>
+    <string name="vagrant">Vagrant</string>
+    <string name="laravel">Laravel</string>
+    <string name="jquery">jQuery</string>
+    <string name="php">PHP</string>
+    <string name="bootstrap">BootStrap</string>
+    <string name="ruby_on_rails">Ruby on Rails</string>
+    <string name="telegram">تلگرام</string>
+    <string name="Communicate">ارتباطات</string>
+
+    <string name="no_more_post">مطلبی یافت نشد.</string>
+    <string name="first_load">درحال دریافت اطلاعات</string>
+    <string name="baboon_ir">Baboon.ir</string>
+    <string name="dev_gmail">ahmadgivekesh@gmail.com</string>
+    <string name="no_network">عدم دسترسی به شبکه</string>
+    <string name="home">صفحه اصلی</string>
+    <string name="refresh">به روزرسانی</string>
+    <string name="author_1">پاتریک</string>
+    <string name="author_5">محمد محمودی</string>
+</resources>

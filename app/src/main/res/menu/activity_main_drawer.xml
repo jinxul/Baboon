@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/html"
+            android:title="@string/html_css" />
+
+        <item
+            android:id="@+id/js"
+            android:title="@string/js" />
+
+        <item
+            android:id="@+id/node"
+            android:title="@string/node_js" />
+
+        <item
+            android:id="@+id/angular"
+            android:title="@string/angularjs" />
+
+        <item
+            android:id="@+id/vagrant"
+            android:title="@string/vagrant" />
+
+        <item
+            android:id="@+id/laravel"
+            android:title="@string/laravel" />
+
+        <item
+            android:id="@+id/jq"
+            android:title="@string/jquery" />
+
+        <item
+            android:id="@+id/php"
+            android:title="@string/php" />
+
+        <item
+            android:id="@+id/bootstrap"
+            android:title="@string/bootstrap" />
+
+        <item
+            android:id="@+id/ruby_on_rails"
+            android:title="@string/ruby_on_rails" />
+    </group>
+
+    <item android:title="@string/Communicate">
+        <menu>
+
+            <item
+                android:id="@+id/telegram"
+                android:title="@string/telegram" />
+            <!--
+            <item android:id="@+id/instagram"
+                android:title="@string/instagram"/>
+
+                -->
+        </menu>
+    </item>
+
+</menu>
