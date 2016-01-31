@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 
 public class MainActivity extends AppCompatActivity implements Interfaces.VolleyCallback, Interfaces.OnNavClickListener {
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onPreRequest() {
-        recyclerView.defaultEmptyView();
+        recyclerView.setError(null);
     }
 
     @Override
@@ -232,8 +231,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
+        final View empty = findViewById(R.id.emptyView);
+
         recyclerView = (recyclerView) findViewById(R.id.RecyclerView);
-        recyclerView.setEmptyView(findViewById(R.id.emptyView));
+        recyclerView.setEmptyView(empty);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {

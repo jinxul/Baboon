@@ -1,7 +1,6 @@
 package com.givekesh.baboon.CustomViews;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,23 +28,15 @@ public class recyclerView extends RecyclerView {
 
     private View mEmptyView;
     private View mParentView;
+    private TextView mEmptyText;
+    private View mEmptyProgress;
 
     private RecyclerView.AdapterDataObserver mDataObserver = new RecyclerView.AdapterDataObserver() {
 
         @Override
         public void onItemRangeInserted(int positionStart, final int itemCount) {
             super.onItemRangeInserted(positionStart, itemCount);
-            mEmptyView.animate()
-                    .translationY(-50)
-                    .alpha(0.0f)
-                    .setDuration(500)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            updateEmptyView();
-                        }
-                    });
+            updateEmptyView();
         }
 
         @Override
@@ -58,19 +49,14 @@ public class recyclerView extends RecyclerView {
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
         mParentView = (ViewGroup) getParent();
+        mEmptyText = (TextView) mEmptyView.findViewById(R.id.loading_text);
+        mEmptyProgress = mEmptyView.findViewById(R.id.loading_progress);
     }
 
     public void setError(String error) {
         if (mEmptyView != null) {
-            mEmptyView.findViewById(R.id.loading_progress).setVisibility(INVISIBLE);
-            ((TextView) mEmptyView.findViewById(R.id.loading_text)).setText(error);
-        }
-    }
-
-    public void defaultEmptyView() {
-        if (mEmptyView != null) {
-            mEmptyView.findViewById(R.id.loading_progress).setVisibility(VISIBLE);
-            ((TextView) mEmptyView.findViewById(R.id.loading_text)).setText(R.string.first_load);
+            mEmptyProgress.setVisibility(error == null ? VISIBLE : INVISIBLE);
+            mEmptyText.setText(error == null ? getContext().getString(R.string.first_load) : error);
         }
     }
 
@@ -91,7 +77,7 @@ public class recyclerView extends RecyclerView {
         if (mEmptyView != null && getAdapter() != null) {
             boolean showEmptyView = getAdapter().getItemCount() <= 1;
             if (showEmptyView)
-                defaultEmptyView();
+                setError(null);
             mEmptyView.setVisibility(showEmptyView ? VISIBLE : GONE);
             mParentView.setVisibility(showEmptyView ? GONE : VISIBLE);
         }
