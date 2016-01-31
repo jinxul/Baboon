@@ -131,10 +131,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             } else
                 mFeedsArrayList.addAll(result);
 
-            if (isLoadingMore)
-                mAdapter.setLoading(false);
-
-            //getIntent().putParcelableArrayListExtra("main_feed", mFeedsArrayList);
             refreshRecycler();
         }
     }
