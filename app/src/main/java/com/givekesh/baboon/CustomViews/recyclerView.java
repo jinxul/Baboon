@@ -31,11 +31,6 @@ public class recyclerView extends RecyclerView {
     private View mParentView;
 
     private RecyclerView.AdapterDataObserver mDataObserver = new RecyclerView.AdapterDataObserver() {
-        @Override
-        public void onChanged() {
-            super.onChanged();
-            updateEmptyView();
-        }
 
         @Override
         public void onItemRangeInserted(int positionStart, final int itemCount) {
