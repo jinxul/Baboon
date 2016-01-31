@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 
 public class MainActivity extends AppCompatActivity implements Interfaces.VolleyCallback, Interfaces.OnNavClickListener {
@@ -121,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     @Override
     public void onSuccess(ArrayList<Feeds> result) {
         if (result != null) {
+            if (result.size() < 10) {
+                recyclerView.disableLoadMore();
+                isLoadingMore = false;
+            } else
+                recyclerView.enableLoadMore();
+
             if (isSwipeRefresh) {
                 mFeedsArrayList.clear();
                 mWaveSwipeRefreshLayout.setRefreshing(false);
@@ -242,11 +249,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         recyclerView.setOnLoadMoreListener(new Interfaces.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount) {
-                if (itemsCount >= 10) {
-                    isLoadingMore = true;
-                    mFeedProvider.getFeedsArrayList(getPage(itemsCount), category, MainActivity.this);
-                } else
-                    recyclerView.disableLoadMore();
+                isLoadingMore = true;
+                mFeedProvider.getFeedsArrayList(getPage(itemsCount), category, MainActivity.this);
             }
         });
 

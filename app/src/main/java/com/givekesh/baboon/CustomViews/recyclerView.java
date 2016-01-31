@@ -44,8 +44,6 @@ public class recyclerView extends RecyclerView {
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
                             updateEmptyView();
-                            if (itemCount >= 10)
-                                enableLoadMore();
                         }
                     });
         }
