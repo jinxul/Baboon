@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     @Override
     public void onSuccess(ArrayList<Feeds> result) {
         if (result != null) {
-            if (result.size() < 10) {
+            if (result.size() < 5) {
                 recyclerView.disableLoadMore();
                 isLoadingMore = false;
             } else
@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             }
         });
 
+
         FadeInAnimator animator = new FadeInAnimator();
         animator.setRemoveDuration(1000);
         animator.setAddDuration(1000);
@@ -287,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private int getPage(int itemCount) {
-        return (itemCount / 10) + 1;
+        return (itemCount / 5) + 1;
     }
 
     private void refreshRecycler() {

@@ -43,7 +43,7 @@ public class FeedProvider {
         final ArrayList<Feeds> feedsArrayList = new ArrayList<>();
 
         String category_name = category != null ? "filter[category_name]=" + category + "&" : "";
-        String url = "http://baboon.ir/wp-json/wp/v2/posts?" + category_name + "fields=id,title,author,date,better_featured_image,excerpt,content&page=" + page;
+        String url = "http://baboon.ir/wp-json/wp/v2/posts?per_page=5&" + category_name + "fields=id,title,author,date,better_featured_image,excerpt,content&page=" + page;
 
         mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Posts>>() {
             @Override
