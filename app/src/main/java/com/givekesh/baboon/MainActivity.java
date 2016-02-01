@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.animation.OvershootInterpolator;
 
 import com.givekesh.baboon.CustomViews.recyclerView;
 import com.givekesh.baboon.Utils.FeedProvider;
@@ -32,7 +31,6 @@ import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import java.util.ArrayList;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
-import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 
 
 public class MainActivity extends AppCompatActivity implements Interfaces.VolleyCallback, Interfaces.OnNavClickListener {
@@ -255,12 +253,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             }
         });
 
-
-        FadeInAnimator animator = new FadeInAnimator();
-        animator.setRemoveDuration(1000);
-        animator.setAddDuration(1000);
-        animator.setInterpolator(new OvershootInterpolator(1f));
-        recyclerView.setItemAnimator(animator);
     }
 
     private void setupMenu() {

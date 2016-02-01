@@ -41,9 +41,7 @@ dependencies {
     compile 'com.vincentbrison.openlibraries.android:foldablelayout:0.0.1@aar'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.4'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
-
-    compile 'jp.wasabeef:recyclerview-animators:2.1.0'
-
+    
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
