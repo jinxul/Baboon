@@ -24,4 +24,6 @@
     <string name="refresh">به روزرسانی</string>
     <string name="author_1">پاتریک</string>
     <string name="author_5">محمد محمودی</string>
+    <string name="contact">تماس با ما</string>
+    <string name="email_chooser">ارسال ایمیل</string>
 </resources>
