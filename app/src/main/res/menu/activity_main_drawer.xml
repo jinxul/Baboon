@@ -49,11 +49,10 @@
             <item
                 android:id="@+id/telegram"
                 android:title="@string/telegram" />
-            <!--
-            <item android:id="@+id/instagram"
-                android:title="@string/instagram"/>
 
-                -->
+            <item
+                android:id="@+id/contact"
+                android:title="@string/contact" />
         </menu>
     </item>
 
