@@ -1,13 +1,7 @@
 package com.givekesh.baboon;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.LabeledIntent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +27,6 @@ import com.mxn.soul.flowingdrawer_core.LeftDrawerLayout;
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
@@ -157,14 +150,15 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onSelect(MenuItem item) {
+        mLeftDrawerLayout.closeDrawer();
 
         switch (item.getItemId()) {
             case R.id.telegram:
-                openTelegram();
+                utils.openTelegram();
                 return;
 
             case R.id.contact:
-                openMailChooser();
+                utils.openMailChooser();
                 return;
 
             case R.id.html:
@@ -232,12 +226,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             }
         });
         mWaveSwipeRefreshLayout.setWaveColor(ContextCompat.getColor(this, R.color.colorPrimary));
-
     }
 
     private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
         final View empty = findViewById(R.id.emptyView);
 
         recyclerView = (recyclerView) findViewById(R.id.RecyclerView);
@@ -261,7 +253,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 mFeedProvider.getFeedsArrayList(getPage(itemsCount), category, MainActivity.this);
             }
         });
-
     }
 
     private void setupMenu() {
@@ -296,62 +287,9 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         mAdapter.refresh(mFeedsArrayList);
     }
 
-
     private void loadBasedOnCategory() {
-        mLeftDrawerLayout.closeDrawer();
         isFirstLoad = true;
         mAdapter.clear();
         mFeedProvider.getFeedsArrayList(1, category, this);
-    }
-
-
-    private void openTelegram() {
-        mLeftDrawerLayout.closeDrawer();
-
-        startActivity(new Intent(Intent.ACTION_VIEW,
-                Uri.parse("https://telegram.me/baboon_ir")));
-    }
-
-    private void openMailChooser() {
-        String[] mails = new String[]{"info@baboon.ir"};
-        String PACKAGE_GMAIL = "android.gm";
-        String PACKAGE_EMAIL = "android.email";
-        String INTENT_TYPE_MSG = "message/rfc822";
-        String INTENT_TYPE_TEXT = "text/plain";
-
-        Intent mailIntent = new Intent();
-        mailIntent.setAction(Intent.ACTION_SEND);
-        mailIntent.putExtra(Intent.EXTRA_EMAIL, mails);
-        mailIntent.setType(INTENT_TYPE_MSG);
-
-        PackageManager pm = getPackageManager();
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.setType(INTENT_TYPE_TEXT);
-
-        Intent openInChooser = Intent.createChooser(mailIntent, getString(R.string.email_chooser));
-
-        List<ResolveInfo> resInfo = pm.queryIntentActivities(sendIntent, 0);
-        List<LabeledIntent> intentList = new ArrayList<>();
-        for (ResolveInfo ri : resInfo) {
-            String packageName = ri.activityInfo.packageName;
-            if (packageName.contains(PACKAGE_EMAIL)) {
-                mailIntent.setPackage(packageName);
-            } else if (packageName.contains(PACKAGE_GMAIL)) {
-                Intent intent = new Intent();
-                intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
-                intent.setAction(Intent.ACTION_SEND);
-                intent.setType(INTENT_TYPE_TEXT);
-
-                intent.putExtra(Intent.EXTRA_EMAIL, mails);
-                intent.setType(INTENT_TYPE_MSG);
-
-                intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
-            }
-        }
-
-        LabeledIntent[] extraIntents = intentList.toArray(new LabeledIntent[intentList.size()]);
-
-        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
-        startActivity(openInChooser);
     }
 }

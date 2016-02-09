@@ -1,9 +1,15 @@
 package com.givekesh.baboon.Utils;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.LabeledIntent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 
 import com.givekesh.baboon.R;
 
@@ -11,7 +17,9 @@ import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -59,4 +67,51 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public void openTelegram() {
+        mContext.startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse("https://telegram.me/baboon_ir")));
+    }
+
+    public void openMailChooser() {
+        String[] mails = new String[]{"info@baboon.ir"};
+        String PACKAGE_GMAIL = "android.gm";
+        String PACKAGE_EMAIL = "android.email";
+        String INTENT_TYPE_MSG = "message/rfc822";
+        String INTENT_TYPE_TEXT = "text/plain";
+
+        Intent mailIntent = new Intent();
+        mailIntent.setAction(Intent.ACTION_SEND);
+        mailIntent.putExtra(Intent.EXTRA_EMAIL, mails);
+        mailIntent.setType(INTENT_TYPE_MSG);
+
+        PackageManager pm = mContext.getPackageManager();
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType(INTENT_TYPE_TEXT);
+
+        Intent openInChooser = Intent.createChooser(mailIntent, mContext.getString(R.string.email_chooser));
+
+        List<ResolveInfo> resInfo = pm.queryIntentActivities(sendIntent, 0);
+        List<LabeledIntent> intentList = new ArrayList<>();
+        for (ResolveInfo ri : resInfo) {
+            String packageName = ri.activityInfo.packageName;
+            if (packageName.contains(PACKAGE_EMAIL)) {
+                mailIntent.setPackage(packageName);
+            } else if (packageName.contains(PACKAGE_GMAIL)) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType(INTENT_TYPE_TEXT);
+
+                intent.putExtra(Intent.EXTRA_EMAIL, mails);
+                intent.setType(INTENT_TYPE_MSG);
+
+                intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
+            }
+        }
+
+        LabeledIntent[] extraIntents = intentList.toArray(new LabeledIntent[intentList.size()]);
+
+        openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
+        mContext.startActivity(openInChooser);
+    }
 }
