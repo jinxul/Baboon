@@ -158,10 +158,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 openTelegram();
                 return;
 
-            case R.id.contact:
-                sendEmail();
-                return;
-
             case R.id.html:
                 category = "html-css";
                 break;
@@ -307,16 +303,4 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 Uri.parse("https://telegram.me/baboon_ir")));
     }
 
-    private void sendEmail() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@baboon.ir"});
-
-        try {
-            intent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
-            startActivity(intent);
-        } catch (Exception ignored) {
-            startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
-        }
-    }
 }
