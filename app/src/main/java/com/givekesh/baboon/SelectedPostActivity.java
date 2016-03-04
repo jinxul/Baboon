@@ -56,7 +56,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         setUseTextAutoSize();
         content.loadDataWithBaseURL("file:///android_asset/", getHtmlData(), "text/html", "UTF-8", null);
 
-        Glide.with(this.getApplicationContext())
+        Glide.with(this)
                 .load(feed.getContentImage())
                 .error(R.mipmap.ic_launcher)
                 .crossFade()

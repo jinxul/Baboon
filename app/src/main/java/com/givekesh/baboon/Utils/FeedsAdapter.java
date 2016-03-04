@@ -1,6 +1,6 @@
 package com.givekesh.baboon.Utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
@@ -34,17 +34,17 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Map<Integer, Boolean> mFoldStates = new HashMap<>();
     private List<Feeds> mFeeds;
     private final Utils utils;
-    private final Activity mActivity;
+    private final Context mContext;
     private boolean isLoading = false;
     private View loading = null;
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
 
-    public FeedsAdapter(List<Feeds> feeds, Activity activity) {
+    public FeedsAdapter(List<Feeds> feeds, Context context) {
         mFeeds = feeds;
-        utils = new Utils(activity);
-        mActivity = activity;
+        mContext = context;
+        utils = new Utils(mContext);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             final Feeds feed = mFeeds.get(position);
 
-            Glide.with(mActivity.getApplicationContext())
+            Glide.with(mContext)
                     .load(feed.getContentImage())
                     .error(R.mipmap.ic_launcher)
                     .crossFade()
@@ -116,9 +116,9 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((mHolder) holder).open.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mActivity, SelectedPostActivity.class);
+                    Intent intent = new Intent(mContext, SelectedPostActivity.class);
                     intent.putExtra("post_parcelable", feed);
-                    mActivity.startActivity(intent);
+                    mContext.startActivity(intent);
                 }
             });
 
