@@ -43,7 +43,7 @@ public class FeedProvider {
         final ArrayList<Feeds> feedsArrayList = new ArrayList<>();
 
         String category_name = category != null ? "filter[category_name]=" + category + "&" : "";
-        String url = "http://baboon.ir/wp-json/wp/v2/posts?per_page=5&" + category_name + "fields=id,title,author,date,better_featured_image,excerpt,content&page=" + page;
+        String url = "http://baboon.ir/wp-json/wp/v2/posts?per_page=5&" + category_name + "fields=id,title,author_info,date,better_featured_image,excerpt,content&page=" + page;
 
         mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Posts>>() {
             @Override
@@ -58,7 +58,7 @@ public class FeedProvider {
                         final Feeds feeds = new Feeds();
                         feeds.setId(post.id);
                         feeds.setTitle(post.title.rendered);
-                        feeds.setAuthor(getAuthor(post.author));
+                        feeds.setAuthor(post.author_info.display_name);
                         feeds.setPost(post.content.rendered);
                         feeds.setDate(utils.getPersianDate(post.date));
                         feeds.setContentImage(post.better_featured_image.source_url);
@@ -76,10 +76,5 @@ public class FeedProvider {
             }
         }));
 
-    }
-
-
-    private String getAuthor(int id) {
-        return mContext.getString(id == 1 ? R.string.author_1 : R.string.author_5);
     }
 }
