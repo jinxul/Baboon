@@ -30,7 +30,7 @@ public class FeedProvider {
         mRequestQueue = JacksonNetwork.newRequestQueue(mContext);
     }
 
-    public void getFeedsArrayList(final int page, String category, final Interfaces.VolleyCallback callBack) {
+    public void getFeedsArrayList(final int page, String category, String search, final Interfaces.VolleyCallback callBack) {
 
         if (!utils.isNetworkAvailable()) {
             callBack.onFailure(mContext.getString(R.string.no_network));
@@ -43,7 +43,8 @@ public class FeedProvider {
         final ArrayList<Feeds> feedsArrayList = new ArrayList<>();
 
         String category_name = category != null ? "filter[category_name]=" + category + "&" : "";
-        String url = "http://baboon.ir/wp-json/wp/v2/posts?per_page=5&" + category_name + "fields=id,title,author_info,date,better_featured_image,excerpt,content&page=" + page;
+        String Search = search != null ? "filter[s]=" + search + "&" : "";
+        String url = "http://baboon.ir/wp-json/wp/v2/posts?per_page=5&" + category_name + Search + "fields=id,title,author_info,date,better_featured_image,excerpt,content&page=" + page;
 
         mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Posts>>() {
             @Override

@@ -1,5 +1,7 @@
 package com.givekesh.baboon;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private boolean isSwipeRefresh = false;
 
     private String category = null;
+    private String search = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         init();
 
         if (savedInstanceState == null)
-            mFeedProvider.getFeedsArrayList(1, category, this);
+            mFeedProvider.getFeedsArrayList(1, category, search, this);
     }
 
     @Override
@@ -77,13 +81,41 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                search = query;
+                mAdapter.clear();
+                mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        mAdapter.clear();
-        mFeedProvider.getFeedsArrayList(1, item.getItemId() == R.id.homePage ? null : category, MainActivity.this);
+        if (item.getItemId() == R.id.homePage){
+            category = null;
+            search = null;
+        }
+        if (item.getItemId() != R.id.action_search) {
+            mAdapter.clear();
+            mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
+        }
         return true;
     }
 
@@ -92,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
         menu.findItem(R.id.refresh).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.REFRESH, Color.WHITE));
         menu.findItem(R.id.homePage).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.HOME, Color.WHITE));
+        menu.findItem(R.id.action_search).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.MAGNIFY, Color.WHITE));
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -219,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             @Override
             public void onRefresh() {
                 isSwipeRefresh = true;
-                mFeedProvider.getFeedsArrayList(1, category, MainActivity.this);
+                mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
             }
         });
         mWaveSwipeRefreshLayout.setWaveColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -247,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             @Override
             public void loadMore(int itemsCount) {
                 isLoadingMore = true;
-                mFeedProvider.getFeedsArrayList(getPage(itemsCount), category, MainActivity.this);
+                mFeedProvider.getFeedsArrayList(getPage(itemsCount), category, search, MainActivity.this);
             }
         });
     }
@@ -287,6 +320,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void loadBasedOnCategory() {
         isFirstLoad = true;
         mAdapter.clear();
-        mFeedProvider.getFeedsArrayList(1, category, this);
+        mFeedProvider.getFeedsArrayList(1, category, search, this);
     }
 }
