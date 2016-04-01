@@ -15,7 +15,7 @@ public final class Posts {
 
     @JsonCreator
     public Posts(@JsonProperty("id") int id, @JsonProperty("date") String date, @JsonProperty("title") Title title,
-                 @JsonProperty("excerpt") Excerpt excerpt, @JsonProperty("author") int author,
+                 @JsonProperty("excerpt") Excerpt excerpt,
                  @JsonProperty("content") Content content, @JsonProperty("better_featured_image") Better_featured_image better_featured_image,
                  @JsonProperty("author_info") Author_info author_info) {
         this.id = id;
