@@ -321,6 +321,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private void loadBasedOnCategory() {
+        search = null;
         isFirstLoad = true;
         mAdapter.clear();
         mFeedProvider.getFeedsArrayList(1, category, search, this);
