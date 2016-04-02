@@ -68,7 +68,7 @@ public class FeedProvider {
                     }
                     callBack.onSuccess(feedsArrayList);
                 } else
-                    callBack.onFailure("lastPage");
+                    callBack.onFailure("not_found");
             }
 
             @Override

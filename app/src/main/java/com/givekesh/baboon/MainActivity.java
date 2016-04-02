@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.homePage){
+        if (item.getItemId() == R.id.homePage) {
             category = null;
             search = null;
         }
@@ -169,10 +169,13 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onFailure(String error) {
-        if (isLoadingMore && error.equalsIgnoreCase("lastPage")) {
-            recyclerView.disableLoadMore();
-            Snackbar.make(recyclerView, R.string.no_more_post, Snackbar.LENGTH_LONG).show();
-            isLoadingMore = false;
+        if (error.equalsIgnoreCase("not_found")) {
+            if (isLoadingMore) {
+                recyclerView.disableLoadMore();
+                Snackbar.make(recyclerView, R.string.no_more_post, Snackbar.LENGTH_LONG).show();
+                isLoadingMore = false;
+            } else
+                recyclerView.setError(getString(R.string.not_found));
         } else {
             recyclerView.setError(error);
         }
