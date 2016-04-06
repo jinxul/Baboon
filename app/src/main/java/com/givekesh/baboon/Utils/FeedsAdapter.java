@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -50,7 +51,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM)
-            return new mHolder(new FoldableLayout(parent.getContext()));
+            return new newHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_ui, parent, false));
+        //return new mHolder(new FoldableLayout(parent.getContext()));
         return new mHolderFooter(loading = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar, parent, false));
     }
 
@@ -171,6 +173,35 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     mFoldStates.put(holder.getAdapterPosition(), true);
                 }
             });
+        } else if (holder instanceof newHolder) {
+            final Feeds feed = mFeeds.get(position);
+            Glide.with(mContext)
+                    .load(feed.getAuthor_avatar())
+                    .into(((newHolder) holder).author_avatar);
+            Glide.with(mContext)
+                    .load(feed.getContentImage())
+                    .into(((newHolder) holder).post_image);
+            ((newHolder) holder).author_name.setText(feed.getAuthor());
+            ((newHolder) holder).post_date.setText(feed.getDate());
+            ((newHolder) holder).post_title.setText(feed.getTitle());
+            ((newHolder) holder).post_excerpt.setText(feed.getExcerpt());
+            ((newHolder) holder).full_article.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    switch (motionEvent.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            ((newHolder) holder).full_article.setCardElevation(0f);
+                            Intent intent = new Intent(mContext, SelectedPostActivity.class);
+                            intent.putExtra("post_parcelable", feed);
+                            mContext.startActivity(intent);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            ((newHolder) holder).full_article.setCardElevation(5f);
+                            break;
+                    }
+                    return true;
+                }
+            });
         }
     }
 
@@ -230,6 +261,27 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     class mHolderFooter extends RecyclerView.ViewHolder {
         public mHolderFooter(View itemView) {
             super(itemView);
+        }
+    }
+
+    class newHolder extends RecyclerView.ViewHolder {
+        private ImageView author_avatar;
+        private ImageView post_image;
+        private TextView author_name;
+        private TextView post_date;
+        private TextView post_title;
+        private TextView post_excerpt;
+        private CardView full_article;
+
+        public newHolder(View itemView) {
+            super(itemView);
+            author_avatar = (ImageView) itemView.findViewById(R.id.author_avatar);
+            post_image = (ImageView) itemView.findViewById(R.id.post_image);
+            author_name = (TextView) itemView.findViewById(R.id.author_name);
+            post_date = (TextView) itemView.findViewById(R.id.post_date);
+            post_title = (TextView) itemView.findViewById(R.id.post_title);
+            post_excerpt = (TextView) itemView.findViewById(R.id.post_excerpt);
+            full_article = (CardView) itemView.findViewById(R.id.full_article);
         }
     }
 }

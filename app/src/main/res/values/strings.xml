@@ -26,4 +26,5 @@
     <string name="email_chooser">ارسال ایمیل</string>
     <string name="search">جستجو</string>
     <string name="not_found">مطلب مورد نظر یافت نشد.</string>
+    <string name="full_article">ادامه</string>
 </resources>
