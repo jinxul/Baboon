@@ -64,6 +64,7 @@ public class FeedProvider {
                         feeds.setDate(utils.getPersianDate(post.date));
                         feeds.setContentImage(post.better_featured_image.source_url);
                         feeds.setExcerpt(post.excerpt.rendered);
+                        feeds.setAuthor_avatar(post.author_info.author_avatar);
                         feedsArrayList.add(feeds);
                     }
                     callBack.onSuccess(feedsArrayList);

@@ -13,6 +13,15 @@ public class Feeds implements Parcelable {
     private String Excerpt;
     private int id;
     private String Post;
+    private String Author_avatar;
+
+    public String getAuthor_avatar() {
+        return Author_avatar;
+    }
+
+    public void setAuthor_avatar(String author_avatar) {
+        Author_avatar = author_avatar;
+    }
 
     public String getPost() {
         return Post;
@@ -84,6 +93,7 @@ public class Feeds implements Parcelable {
         Excerpt = in.readString();
         id = in.readInt();
         Post = in.readString();
+        Author_avatar = in.readString();
     }
 
     public static final Creator<Feeds> CREATOR = new Creator<Feeds>() {
@@ -112,5 +122,6 @@ public class Feeds implements Parcelable {
         parcel.writeString(Excerpt);
         parcel.writeInt(id);
         parcel.writeString(Post);
+        parcel.writeString(Author_avatar);
     }
 }
