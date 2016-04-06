@@ -103,7 +103,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private void setUpWebViewDefaults() {
         WebSettings settings = content.getSettings();
 
-        settings.setUseWideViewPort(true);
+        //settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
 
         settings.setBuiltInZoomControls(true);
@@ -129,8 +129,10 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
 
     private String getHtmlData() {
         return "<HTML><head>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"main.min.css\" />" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"crayon_style.css\" />" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"baboon-main.css\" />" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"ubuntu-mono.css\" />" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"crayon-theme.css\" />" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"crayon.min.css\" />" +
                 "</head>" +
                 "<body style='padding-left:10px; padding-right:10px'>" +
                 feed.getPost() +
