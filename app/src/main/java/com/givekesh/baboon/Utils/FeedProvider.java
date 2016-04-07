@@ -60,7 +60,7 @@ public class FeedProvider {
                         feeds.setId(post.id);
                         feeds.setTitle(post.title.rendered);
                         feeds.setAuthor(post.author_info.display_name);
-                        feeds.setPost(post.content.rendered);
+                        feeds.setPost(removeYoutubeVideos(post.content.rendered));
                         feeds.setDate(utils.getPersianDate(post.date));
                         feeds.setContentImage(post.better_featured_image.source_url);
                         feeds.setExcerpt(post.excerpt.rendered);
@@ -78,5 +78,11 @@ public class FeedProvider {
             }
         }));
 
+    }
+
+    private String removeYoutubeVideos(String input) {
+        return input.contains("<div class=\"su-youtube") ?
+                input.replace(input.substring(input.indexOf("<div class=\"su-youtube"),
+                        input.indexOf("</iframe></div>")), "") : input;
     }
 }
