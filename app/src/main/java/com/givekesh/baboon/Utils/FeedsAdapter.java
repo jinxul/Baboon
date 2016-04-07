@@ -183,8 +183,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .into(((newHolder) holder).post_image);
             ((newHolder) holder).author_name.setText(feed.getAuthor());
             ((newHolder) holder).post_date.setText(feed.getDate());
-            ((newHolder) holder).post_title.setText(feed.getTitle());
-            ((newHolder) holder).post_excerpt.setText(feed.getExcerpt());
+            ((newHolder) holder).post_title.setText(Html.fromHtml(feed.getTitle()));
+            ((newHolder) holder).post_excerpt.setText(Html.fromHtml(feed.getExcerpt().replace("<p>", "<p align=\"justify\">")));
             ((newHolder) holder).full_article.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
