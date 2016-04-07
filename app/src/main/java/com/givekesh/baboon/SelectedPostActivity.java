@@ -14,6 +14,7 @@ import android.webkit.WebSettings;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
@@ -58,6 +59,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
 
         Glide.with(this)
                 .load(feed.getContentImage())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(mImageView);

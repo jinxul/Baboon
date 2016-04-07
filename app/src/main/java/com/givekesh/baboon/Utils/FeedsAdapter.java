@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.SelectedPostActivity;
 
@@ -100,6 +101,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Glide.with(mContext)
                     .load(feed.getContentImage())
                     .error(R.mipmap.ic_launcher)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .crossFade()
                     .into(((mHolder) holder).contentImage);
 
@@ -177,9 +179,11 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             final Feeds feed = mFeeds.get(position);
             Glide.with(mContext)
                     .load(feed.getAuthor_avatar())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(((newHolder) holder).author_avatar);
             Glide.with(mContext)
                     .load(feed.getContentImage())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(((newHolder) holder).post_image);
             ((newHolder) holder).author_name.setText(feed.getAuthor());
             ((newHolder) holder).post_date.setText(feed.getDate());
