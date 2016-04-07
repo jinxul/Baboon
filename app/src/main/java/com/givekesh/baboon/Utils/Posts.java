@@ -69,7 +69,7 @@ public final class Posts {
         public final String author_avatar;
 
         public Author_info(@JsonProperty("id") int author_id, @JsonProperty("display_name") String display_name,
-                           @JsonProperty("author_avatar") String author_avatar) {
+                           @JsonProperty("avatar_url") String author_avatar) {
             this.author_id = author_id;
             this.display_name = display_name;
             this.author_avatar = author_avatar;
