@@ -229,6 +229,14 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             case R.id.ruby_on_rails:
                 category = "ruby-on-rails";
                 break;
+
+            case R.id.express:
+                category = "expressjs";
+                break;
+
+            case R.id.symfony:
+                category = "syfmony";
+                break;
         }
         loadBasedOnCategory();
     }

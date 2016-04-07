@@ -27,4 +27,6 @@
     <string name="search">جستجو</string>
     <string name="not_found">مطلب مورد نظر یافت نشد.</string>
     <string name="full_article">ادامه</string>
+    <string name="express">Express</string>
+    <string name="symfony">Symfony</string>
 </resources>

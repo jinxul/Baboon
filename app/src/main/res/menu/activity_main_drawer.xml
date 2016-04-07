@@ -41,6 +41,15 @@
         <item
             android:id="@+id/ruby_on_rails"
             android:title="@string/ruby_on_rails" />
+
+        <item
+            android:id="@+id/express"
+            android:title="@string/express" />
+
+        <item
+            android:id="@+id/symfony"
+            android:title="@string/symfony" />
+
     </group>
 
     <item android:title="@string/Communicate">
