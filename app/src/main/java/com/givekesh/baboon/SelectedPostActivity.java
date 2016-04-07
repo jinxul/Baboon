@@ -34,14 +34,12 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private int mParallaxImageHeight;
     private Feeds feed;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_post);
 
         feed = getIntent().getParcelableExtra("post_parcelable");
-
         mImageView = (ImageView) findViewById(R.id.post_image);
         setupToolbar();
 
@@ -49,7 +47,6 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         mScrollView.setScrollViewCallbacks(this);
 
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
-
 
         content = (ObservableWebView) findViewById(R.id.post_content);
         setUpWebViewDefaults();
@@ -108,9 +105,8 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         settings.setLoadWithOverviewMode(true);
         settings.setBuiltInZoomControls(true);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB)
             settings.setDisplayZoomControls(false);
-        }
 
         content.setWebChromeClient(new WebChromeClient());
     }
@@ -119,9 +115,8 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         WebSettings settings = content.getSettings();
 
         WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
-        }
 
         settings.setLayoutAlgorithm(layoutAlgorithm);
     }

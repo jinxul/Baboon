@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         mFeedsArrayList = savedInstanceState.getParcelableArrayList("main_feed");
         refreshRecycler();
     }
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.action_search).getActionView();
-
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -121,11 +119,9 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         menu.findItem(R.id.refresh).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.REFRESH, Color.WHITE));
         menu.findItem(R.id.homePage).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.HOME, Color.WHITE));
         menu.findItem(R.id.action_search).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.MAGNIFY, Color.WHITE));
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -248,9 +244,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void setupContent() {
         mAdapter = new FeedsAdapter(mFeedsArrayList, this);
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
-
-        setupRecyclerView();
-
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -259,12 +252,12 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             }
         });
         mWaveSwipeRefreshLayout.setWaveColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        setupRecyclerView();
     }
 
     private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         final View empty = findViewById(R.id.emptyView);
-
         recyclerView = (recyclerView) findViewById(R.id.RecyclerView);
         recyclerView.setEmptyView(empty);
         recyclerView.setHasFixedSize(true);

@@ -25,7 +25,6 @@ public class recyclerView extends RecyclerView {
     private int mFirstVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener;
     private FeedsAdapter mAdapter;
-
     private View mEmptyView;
     private View mParentView;
     private TextView mEmptyText;
@@ -112,7 +111,6 @@ public class recyclerView extends RecyclerView {
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-
                 mVisibleItemCount = layoutManager.getChildCount();
                 mTotalItemCount = layoutManager.getItemCount();
                 mFirstVisibleItem = layoutManager.findFirstVisibleItemPosition();
@@ -135,7 +133,6 @@ public class recyclerView extends RecyclerView {
 
         addOnScrollListener(mOnScrollListener);
 
-
         if (mAdapter != null && !mAdapter.isLoading())
             mAdapter.setLoading(true);
     }
@@ -143,5 +140,4 @@ public class recyclerView extends RecyclerView {
     public void setOnLoadMoreListener(Interfaces.OnLoadMoreListener onLoadMoreListener) {
         this.onLoadMoreListener = onLoadMoreListener;
     }
-
 }

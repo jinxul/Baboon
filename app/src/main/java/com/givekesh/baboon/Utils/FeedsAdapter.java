@@ -43,7 +43,6 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
-
     public FeedsAdapter(List<Feeds> feeds, Activity activity) {
         mFeeds = feeds;
         mActivity = activity;
@@ -95,8 +94,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof mHolder) {
 
+        if (holder instanceof mHolder) {
             final Feeds feed = mFeeds.get(position);
 
             Glide.with(mActivity)
@@ -106,11 +105,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .crossFade()
                     .into(((mHolder) holder).contentImage);
 
-
             ((mHolder) holder).Title.setText(Html.fromHtml(feed.getTitle()));
-            //((mHolder) holder).Author.setText(feed.getAuthor());
             ((mHolder) holder).Date.setText(feed.getDate());
-
             ((mHolder) holder).Title_Detail.setText(Html.fromHtml(feed.getTitle()));
             ((mHolder) holder).Author_Detail.setText(feed.getAuthor());
             ((mHolder) holder).Date_Detail.setText(feed.getDate());
@@ -144,7 +140,6 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((mHolder) holder).mFoldableLayout.foldWithoutAnimation();
             }
 
-
             ((mHolder) holder).mFoldableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -155,7 +150,6 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 }
             });
-
 
             ((mHolder) holder).mFoldableLayout.setFoldListener(new FoldableLayout.FoldListener() {
                 @Override
@@ -188,6 +182,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .load(feed.getContentImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(((newHolder) holder).post_image);
+
             ((newHolder) holder).author_name.setText(feed.getAuthor());
             ((newHolder) holder).post_date.setText(feed.getDate());
             ((newHolder) holder).post_title.setText(Html.fromHtml(feed.getTitle()));
@@ -203,6 +198,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             ActivityOptionsCompat options = ActivityOptionsCompat.
                                     makeSceneTransitionAnimation(mActivity, ((newHolder) holder).post_image, "post_image");
                             mActivity.startActivity(intent, options.toBundle());
+
                             break;
                         case MotionEvent.ACTION_UP:
                             ((newHolder) holder).full_article.setCardElevation(5f);
@@ -232,19 +228,15 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     class mHolder extends RecyclerView.ViewHolder {
 
         private final ImageView contentImage;
-        //private final TextView Author;
         private final TextView Date;
         private final TextView Title;
-
         private final TextView Author_Detail;
         private final TextView Date_Detail;
         private final TextView Title_Detail;
         private final TextView Excerpt;
         private final ImageButton open;
-
         private final CardView cardView;
         private final FoldableLayout mFoldableLayout;
-
 
         public mHolder(FoldableLayout itemView) {
             super(itemView);
@@ -253,16 +245,13 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             itemView.setupViews(R.layout.feed_cover, R.layout.feed_detail, R.dimen.card_cover_height, itemView.getContext());
 
             contentImage = (ImageView) itemView.findViewById(R.id.content_image);
-            //Author = (TextView) itemView.findViewById(R.id.author);
             Date = (TextView) itemView.findViewById(R.id.date);
             Title = (TextView) itemView.findViewById(R.id.title);
-
             Author_Detail = (TextView) itemView.findViewById(R.id.author_detail);
             Date_Detail = (TextView) itemView.findViewById(R.id.date_detail);
             Title_Detail = (TextView) itemView.findViewById(R.id.title_detail);
             Excerpt = (TextView) itemView.findViewById(R.id.excerpt);
             open = (ImageButton) itemView.findViewById(R.id.open);
-
             cardView = (CardView) itemView.findViewById(R.id.card_detail);
         }
     }
@@ -274,6 +263,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     class newHolder extends RecyclerView.ViewHolder {
+
         private ImageView author_avatar;
         private ImageView post_image;
         private TextView author_name;

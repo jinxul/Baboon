@@ -27,7 +27,6 @@ public class Utils {
 
     private static final long MILLIS_JULIAN_EPOCH = -210866803200000L;
     private static final long MILLIS_OF_A_DAY = 86400000L;
-
     private final Context mContext;
 
     public Utils(Context context) {
@@ -49,9 +48,7 @@ public class Utils {
             long year = PersianRowDate >> 16;
             int month = (int) (PersianRowDate & 0xff00) >> 8;
             int day = (int) (PersianRowDate & 0xff);
-
             int persianYear = (int) (year > 0 ? year : year - 1);
-
             String[] persianMonth = mContext.getResources().getStringArray(R.array.month);
 
             return String.valueOf(day + " " + persianMonth[month] + " " + persianYear);

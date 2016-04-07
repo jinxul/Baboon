@@ -87,7 +87,6 @@ public class RippleView extends RelativeLayout {
         }
     };
 
-
     public RippleView(Context context) {
         super(context);
     }
