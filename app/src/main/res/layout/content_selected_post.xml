@@ -8,6 +8,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:transitionGroup="true"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -19,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/parallax_image_height"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
+                android:transitionName="post_image" />
 
             <View
                 android:id="@+id/anchor"

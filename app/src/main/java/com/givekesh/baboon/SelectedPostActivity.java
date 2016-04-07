@@ -1,6 +1,5 @@
 package com.givekesh.baboon;
 
-
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,7 +73,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         mToolbarView.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelectedPostActivity.this.finish();
+                supportFinishAfterTransition();
             }
         });
     }
@@ -107,7 +106,6 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
 
         //settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-
         settings.setBuiltInZoomControls(true);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
@@ -115,7 +113,6 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         }
 
         content.setWebChromeClient(new WebChromeClient());
-
     }
 
     private void setUseTextAutoSize() {
@@ -139,5 +136,11 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                 "<body style='padding-left:10px; padding-right:10px'>" +
                 feed.getPost() +
                 "</body></HTML>";
+    }
+
+    @Override
+    public void onBackPressed() {
+        supportFinishAfterTransition();
+        super.onBackPressed();
     }
 }

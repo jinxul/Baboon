@@ -1,9 +1,10 @@
 package com.givekesh.baboon.Utils;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
@@ -36,17 +37,17 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Map<Integer, Boolean> mFoldStates = new HashMap<>();
     private List<Feeds> mFeeds;
     private final Utils utils;
-    private final Context mContext;
+    private final Activity mActivity;
     private boolean isLoading = false;
     private View loading = null;
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
 
-    public FeedsAdapter(List<Feeds> feeds, Context context) {
+    public FeedsAdapter(List<Feeds> feeds, Activity activity) {
         mFeeds = feeds;
-        mContext = context;
-        utils = new Utils(mContext);
+        mActivity = activity;
+        utils = new Utils(mActivity);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             final Feeds feed = mFeeds.get(position);
 
-            Glide.with(mContext)
+            Glide.with(mActivity)
                     .load(feed.getContentImage())
                     .error(R.mipmap.ic_launcher)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -120,9 +121,11 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((mHolder) holder).open.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mContext, SelectedPostActivity.class);
+                    Intent intent = new Intent(mActivity, SelectedPostActivity.class);
                     intent.putExtra("post_parcelable", feed);
-                    mContext.startActivity(intent);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(mActivity, ((mHolder) holder).contentImage, "post_image");
+                    mActivity.startActivity(intent, options.toBundle());
                 }
             });
 
@@ -177,11 +180,11 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
         } else if (holder instanceof newHolder) {
             final Feeds feed = mFeeds.get(position);
-            Glide.with(mContext)
+            Glide.with(mActivity)
                     .load(feed.getAuthor_avatar())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(((newHolder) holder).author_avatar);
-            Glide.with(mContext)
+            Glide.with(mActivity)
                     .load(feed.getContentImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(((newHolder) holder).post_image);
@@ -195,9 +198,11 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             ((newHolder) holder).full_article.setCardElevation(0f);
-                            Intent intent = new Intent(mContext, SelectedPostActivity.class);
+                            Intent intent = new Intent(mActivity, SelectedPostActivity.class);
                             intent.putExtra("post_parcelable", feed);
-                            mContext.startActivity(intent);
+                            ActivityOptionsCompat options = ActivityOptionsCompat.
+                                    makeSceneTransitionAnimation(mActivity, ((newHolder) holder).post_image, "post_image");
+                            mActivity.startActivity(intent, options.toBundle());
                             break;
                         case MotionEvent.ACTION_UP:
                             ((newHolder) holder).full_article.setCardElevation(5f);
