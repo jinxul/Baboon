@@ -59,6 +59,11 @@ public class recyclerView extends RecyclerView {
         }
     }
 
+    public void setmAdapter(FeedsAdapter mAdapter) {
+        this.mAdapter = mAdapter;
+        setAdapter(mAdapter);
+    }
+
     @Override
     public void setAdapter(RecyclerView.Adapter adapter) {
         if (getAdapter() != null) {
@@ -67,7 +72,7 @@ public class recyclerView extends RecyclerView {
         if (adapter != null) {
             adapter.registerAdapterDataObserver(mDataObserver);
         }
-        mAdapter = (FeedsAdapter) adapter;
+
         super.setAdapter(adapter);
         updateEmptyView();
     }

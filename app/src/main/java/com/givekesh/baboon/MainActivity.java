@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             }
         });
 
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setmAdapter(mAdapter);
 
         recyclerView.setOnLoadMoreListener(new Interfaces.OnLoadMoreListener() {
             @Override
