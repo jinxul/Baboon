@@ -311,6 +311,12 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 mLeftDrawerLayout.toggle();
             }
         });
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
     }
 
     private int getPage(int itemCount) {
