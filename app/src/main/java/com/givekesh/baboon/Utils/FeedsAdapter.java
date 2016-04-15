@@ -136,13 +136,13 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    class mHolderFooter extends RecyclerView.ViewHolder {
+    private class mHolderFooter extends RecyclerView.ViewHolder {
         public mHolderFooter(View itemView) {
             super(itemView);
         }
     }
 
-    class newHolder extends RecyclerView.ViewHolder {
+    private class newHolder extends RecyclerView.ViewHolder {
 
         private ImageView author_avatar;
         private ImageView post_image;
