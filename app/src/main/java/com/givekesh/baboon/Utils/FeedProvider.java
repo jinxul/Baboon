@@ -42,9 +42,9 @@ public class FeedProvider {
 
         final ArrayList<Feeds> feedsArrayList = new ArrayList<>();
 
-        String category_name = category != null ? "filter[category_name]=" + category + "&" : "";
-        String Search = search != null ? "filter[s]=" + search + "&" : "";
-        String url = "http://baboon.ir/wp-json/wp/v2/posts?per_page=5&" + category_name + Search + "fields=id,title,author_info,date,better_featured_image,excerpt,content&page=" + page;
+        String category_name = category != null ? "category_name=" + category + "&" : "";
+        String Search = search != null ? "search=" + search + "&" : "";
+        String url = "http://baboon.ir/wp-json/givekesh/posts?" + category_name + Search + "page=" + page;
 
         mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Posts>>() {
             @Override
@@ -62,7 +62,7 @@ public class FeedProvider {
                         feeds.setAuthor(post.author_info.display_name);
                         feeds.setPost(removeYoutubeVideos(post.content.rendered));
                         feeds.setDate(utils.getPersianDate(post.date));
-                        feeds.setContentImage(post.better_featured_image.source_url);
+                        feeds.setContentImage(post.image.source_url);
                         feeds.setExcerpt(post.excerpt.rendered);
                         feeds.setAuthor_avatar(post.author_info.author_avatar);
                         feedsArrayList.add(feeds);

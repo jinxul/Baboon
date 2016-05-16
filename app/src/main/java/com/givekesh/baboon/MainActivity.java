@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     @Override
     public void onSuccess(ArrayList<Feeds> result) {
         if (result != null) {
-            if (result.size() < 5) {
+            if (result.size() < 10) {
                 recyclerView.disableLoadMore();
                 isLoadingMore = false;
             } else
@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private int getPage(int itemCount) {
-        return (itemCount / 5) + 1;
+        return (itemCount / 10) + 1;
     }
 
     private void refreshRecycler() {
