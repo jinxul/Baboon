@@ -42,7 +42,7 @@ public class Utils {
 
     public String getPersianDate(String input) {
         try {
-            Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).parse(input);
+            Date date = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss", Locale.ENGLISH).parse(input);
             long julianDate = ((long) Math.floor((date.getTime() - MILLIS_JULIAN_EPOCH)) / MILLIS_OF_A_DAY);
             long PersianRowDate = PersianCalendarUtils.julianToPersian(julianDate);
             long year = PersianRowDate >> 16;
