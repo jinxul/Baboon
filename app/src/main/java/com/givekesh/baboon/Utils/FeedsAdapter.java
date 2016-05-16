@@ -105,12 +105,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             ((newHolder) holder).full_article.setCardElevation(0f);
-                            Intent intent = new Intent(mActivity, SelectedPostActivity.class);
-                            intent.putExtra("post_parcelable", feed);
-                            ActivityOptionsCompat options = ActivityOptionsCompat.
-                                    makeSceneTransitionAnimation(mActivity, ((newHolder) holder).post_image, "post_image");
-                            mActivity.startActivity(intent, options.toBundle());
-
+                            showPost(feed, (newHolder) holder);
                             break;
                         case MotionEvent.ACTION_UP:
                             ((newHolder) holder).full_article.setCardElevation(5f);
@@ -119,7 +114,22 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     return true;
                 }
             });
+            ((newHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPost(feed, (newHolder) holder);
+                }
+            });
         }
+    }
+
+    private void showPost(Feeds feed, newHolder holder) {
+        Intent intent = new Intent(mActivity, SelectedPostActivity.class);
+        intent.putExtra("post_parcelable", feed);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(mActivity, holder.post_image, "post_image");
+        mActivity.startActivity(intent, options.toBundle());
+
     }
 
     @Override
