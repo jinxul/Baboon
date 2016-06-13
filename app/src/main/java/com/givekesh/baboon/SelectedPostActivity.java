@@ -124,9 +124,6 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private String getHtmlData() {
         return "<HTML><head>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"baboon-main.css\" />" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"ubuntu-mono.css\" />" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"crayon-theme.css\" />" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"crayon.min.css\" />" +
                 "</head>" +
                 "<body style='padding-left:10px; padding-right:10px'>" +
                 feed.getPost() +
