@@ -81,9 +81,8 @@ public class FeedProvider {
     }
 
     private String removeYoutubeVideos(String input) {
-        return input.contains("<div class=\"su-youtube") ?
-                input.replace(input.substring(input.indexOf("<div class=\"su-youtube"),
-                        input.indexOf("</iframe></div>")), "") : input;
+        return input.contains("[su_youtube") ?
+                input.replace(input.substring(input.indexOf("[su_youtube")), "") : input;
     }
 
     private String setCodeBox(String input) {
