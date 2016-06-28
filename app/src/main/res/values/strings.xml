@@ -29,4 +29,8 @@
     <string name="full_article">ادامه</string>
     <string name="express">Express</string>
     <string name="symfony">Symfony</string>
+
+    <string name="try_again">دریافت مجدد اطلاعات</string>
+    <string name="connection_failed">مشکل در برقراری ارتباط</string>
+    <string name="splash">baboon.ir</string>
 </resources>
