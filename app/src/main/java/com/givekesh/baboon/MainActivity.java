@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             if (isSwipeRefresh) {
                 mFeedsArrayList.clear();
                 mWaveSwipeRefreshLayout.setRefreshing(false);
+                isSwipeRefresh = false;
             }
             if (isFirstLoad) {
                 mFeedsArrayList = result;
@@ -173,6 +174,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             } else
                 recyclerView.setError(getString(R.string.not_found));
         } else {
+            if (isSwipeRefresh) {
+                mAdapter.clear();
+                mWaveSwipeRefreshLayout.setRefreshing(false);
+            }
             recyclerView.setError(error);
         }
     }
