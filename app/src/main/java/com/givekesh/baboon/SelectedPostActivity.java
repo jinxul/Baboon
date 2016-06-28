@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -104,6 +105,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         //settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
         settings.setBuiltInZoomControls(true);
+        settings.setJavaScriptEnabled(true);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB)
             settings.setDisplayZoomControls(false);
@@ -124,6 +126,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private String getHtmlData() {
         return "<HTML><head>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"baboon-main.css\" />" +
+                "<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sons-of-obsidian\" defer=\"defer\"></script>" +
                 "</head>" +
                 "<body style='padding-left:10px; padding-right:10px'>" +
                 feed.getPost() +
