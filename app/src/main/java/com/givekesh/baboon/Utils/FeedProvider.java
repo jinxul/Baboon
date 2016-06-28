@@ -80,49 +80,6 @@ public class FeedProvider {
 
     }
 
-    public void getFeedsArrayList(final int post_id, final Interfaces.CommentsCallBack callBack) {
-
-        if (!utils.isNetworkAvailable()) {
-            callBack.onFailure(mContext.getString(R.string.no_network));
-            return;
-        }
-
-        final ArrayList<Comment> feedsArrayList = new ArrayList<>();
-
-        String url = "http://baboon.ir/wp-json/givekesh/comments/" + post_id;
-
-        mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Comments>>() {
-            @Override
-            public void onResponse(List<Comments> response, int statusCode, VolleyError error) {
-                if (error != null) {
-                    callBack.onFailure(error.toString());
-                    return;
-                }
-
-                if (response.size() > 0) {
-                    for (Comments comments : response) {
-                        final Comment comment = new Comment();
-                        comment.setId(comments.id);
-                        comment.setParent_id(comments.parent_id);
-                        comment.setDate(comments.date);
-                        comment.setContent(comments.content);
-                        comment.setDisplay_name(comments.author_info.display_name);
-                        comment.setAuthor_avatar(comments.author_info.author_avatar);
-                        feedsArrayList.add(comment);
-                    }
-                    callBack.onSuccess(feedsArrayList);
-                } else
-                    callBack.onFailure("not_found");
-            }
-
-            @Override
-            public JavaType getReturnType() {
-                return CollectionType.construct(ArrayList.class, SimpleType.construct(Posts.class));
-            }
-        }));
-
-    }
-
     private String removeYoutubeVideos(String input) {
         return input.contains("[su_youtube") ?
                 input.replace(input.substring(input.indexOf("[su_youtube")), "") : input;
