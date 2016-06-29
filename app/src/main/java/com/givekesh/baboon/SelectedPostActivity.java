@@ -127,7 +127,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"baboon-main.css\" />" +
                 "<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sons-of-obsidian\" defer=\"defer\"></script>" +
                 "</head>" +
-                "<body style='padding-left:10px; padding-right:10px'>" +
+                "<body>" +
                 feed.getPost() +
                 "</body></HTML>";
     }
