@@ -33,4 +33,5 @@
     <string name="try_again">دریافت مجدد اطلاعات</string>
     <string name="connection_failed">مشکل در برقراری ارتباط</string>
     <string name="splash">baboon.ir</string>
+    <string name="new_post">پست جدید</string>
 </resources>
