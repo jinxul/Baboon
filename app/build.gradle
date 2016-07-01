@@ -46,5 +46,6 @@ dependencies {
     compile 'com.spothero.volley:volley-jackson-extension:1.0.1'
 
     compile 'com.google.firebase:firebase-messaging:9.2.0'
+    compile 'com.google.firebase:firebase-crash:9.2.0'
 }
 apply plugin: 'com.google.gms.google-services'
