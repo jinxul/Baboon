@@ -80,6 +80,45 @@ public class FeedProvider {
 
     }
 
+    public void getSinglePost(String requestedUrl, final Interfaces.SinglePostCallback callBack) {
+        if (!utils.isNetworkAvailable()) {
+            callBack.onFailure(mContext.getString(R.string.no_network));
+            return;
+        }
+
+        String url = "http://baboon.ir/wp-json/givekesh/post_by_url/" + requestedUrl;
+
+        mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<Posts>() {
+            @Override
+            public void onResponse(Posts post, int statusCode, VolleyError error) {
+                if (error != null) {
+                    callBack.onFailure(error.toString());
+                    return;
+                }
+
+                if (post != null) {
+                    final Feeds feed = new Feeds();
+                    feed.setId(post.id);
+                    feed.setTitle(post.title.rendered);
+                    feed.setAuthor(post.author_info.display_name);
+                    feed.setPost(parsContent(post.content.rendered));
+                    feed.setDate(utils.getPersianDate(post.date));
+                    feed.setContentImage(post.image.source_url);
+                    feed.setExcerpt(post.excerpt.rendered);
+                    feed.setAuthor_avatar(post.author_info.author_avatar);
+
+                    callBack.onSuccess(feed);
+                } else
+                    callBack.onFailure("not_found");
+            }
+
+            @Override
+            public JavaType getReturnType() {
+                return SimpleType.construct(Posts.class);
+            }
+        }));
+    }
+
     private String removeYoutubeVideos(String input) {
         return input.contains("[su_youtube") ?
                 input.replace(input.substring(input.indexOf("[su_youtube")), "") : input;

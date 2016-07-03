@@ -17,6 +17,11 @@ public class Interfaces {
         void onFailure(String error);
     }
 
+    public interface SinglePostCallback{
+        void onSuccess(Feeds post);
+        void onFailure(String error);
+    }
+
     public interface OnNavClickListener{
         void onSelect(MenuItem item);
     }
