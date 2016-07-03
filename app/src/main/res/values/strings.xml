@@ -34,4 +34,9 @@
     <string name="connection_failed">مشکل در برقراری ارتباط</string>
     <string name="splash">baboon.ir</string>
     <string name="new_post">پست جدید</string>
+
+    <string name="instagram_url">https://www.instagram.com/baboon.ir</string>
+    <string name="instagram_intent_url">http://instagram.com/_u/baboon.ir</string>
+    <string name="instagram_package">com.instagram.android</string>
+    <string name="instagram">اینستاگرم</string>
 </resources>

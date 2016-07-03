@@ -187,6 +187,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         mLeftDrawerLayout.closeDrawer();
 
         switch (item.getItemId()) {
+            case R.id.instagram:
+                utils.openInstagram();
+                return;
+
             case R.id.telegram:
                 utils.openTelegram();
                 return;

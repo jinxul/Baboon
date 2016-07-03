@@ -1,5 +1,6 @@
 package com.givekesh.baboon.Utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -110,5 +111,19 @@ public class Utils {
 
         openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
         mContext.startActivity(openInChooser);
+    }
+
+    public void openInstagram() {
+        Uri uri = Uri.parse(mContext.getString(R.string.instagram_intent_url));
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+        likeIng.setPackage(mContext.getString(R.string.instagram_package));
+
+        try {
+            mContext.startActivity(likeIng);
+        } catch (ActivityNotFoundException e) {
+            mContext.startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mContext.getString(R.string.instagram_url))));
+        }
     }
 }
