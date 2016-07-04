@@ -126,4 +126,24 @@ public class Utils {
                     Uri.parse(mContext.getString(R.string.instagram_url))));
         }
     }
+
+    public Intent getBazaarIntent() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (isBazaarInstalled()) {
+            intent.setData(Uri.parse("bazaar://details?id=com.givekesh.baboon"));
+            intent.setPackage("com.farsitel.bazaar");
+        } else
+            intent.setData(Uri.parse("https://cafebazaar.ir/app/com.givekesh.baboon/?l=fa"));
+        return intent;
+    }
+
+    private boolean isBazaarInstalled() {
+        PackageManager packageManager = mContext.getPackageManager();
+        try {
+            packageManager.getPackageInfo("com.farsitel.bazaar", PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 }

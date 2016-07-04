@@ -11,6 +11,7 @@ import android.text.Html;
 
 import com.givekesh.baboon.MainActivity;
 import com.givekesh.baboon.R;
+import com.givekesh.baboon.Utils.Utils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -19,11 +20,17 @@ public class MessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        sendNotification(remoteMessage.getData().get("post_title"));
+        if (remoteMessage.getData().containsKey("new_version"))
+            sendNotification(new Utils(this).getBazaarIntent(),
+                    String.format(getString(R.string.new_version_content), remoteMessage.getData().get("new_version")),
+                    getString(R.string.new_version_title));
+        else
+            sendNotification(new Intent(this, MainActivity.class),
+                    remoteMessage.getNotification().getBody(),
+                    remoteMessage.getNotification().getTitle());
     }
 
-    private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void sendNotification(Intent intent, String messageBody, String title) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -31,7 +38,7 @@ public class MessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(getString(R.string.new_post))
+                .setContentTitle(title)
                 .setContentText(Html.fromHtml(messageBody))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
