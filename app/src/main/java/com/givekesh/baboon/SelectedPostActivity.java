@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
@@ -20,11 +22,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+import com.givekesh.baboon.Utils.Comments.CommentsAdapter;
+import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import com.givekesh.baboon.Utils.FeedProvider;
 import com.givekesh.baboon.Utils.Feeds;
 import com.givekesh.baboon.Utils.Interfaces;
@@ -32,6 +37,8 @@ import com.givekesh.baboon.Utils.Utils;
 import com.nineoldandroids.view.ViewHelper;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
+
+import java.util.ArrayList;
 
 public class SelectedPostActivity extends AppCompatActivity implements ObservableScrollViewCallbacks {
 
@@ -41,6 +48,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private ObservableWebView content;
     private int mParallaxImageHeight;
     private Feeds feed;
+    private ActionProcessButton loadComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +75,38 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                 .error(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(mImageView);
+
+        loadComments = (ActionProcessButton) findViewById(R.id.show_comments);
+        final RecyclerView comments = (RecyclerView) findViewById(R.id.comment_list);
+        comments.setLayoutManager(new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+
+        loadComments.setMode(ActionProcessButton.Mode.ENDLESS);
+        loadComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadComments.setProgress(1);
+                new FeedProvider(SelectedPostActivity.this).getFeedsArrayList(feed.getId(), new Interfaces.CommentsCallBack() {
+                    @Override
+                    public void onSuccess(ArrayList<Comment> result) {
+                        loadComments.setProgress(0);
+                        loadComments.setVisibility(View.GONE);
+                        comments.setAdapter(new CommentsAdapter(result, SelectedPostActivity.this));
+
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        loadComments.setErrorText(error);
+                        loadComments.setProgress(-1);
+                    }
+                });
+            }
+        });
     }
 
     private void setupToolbar() {
@@ -145,6 +185,12 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                     startActivity(intent);
                 }
                 return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                loadComments.setVisibility(View.VISIBLE);
             }
         });
     }

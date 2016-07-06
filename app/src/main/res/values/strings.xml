@@ -41,4 +41,7 @@
 
     <string name="new_version_title">نسخه جدید</string>
     <string name="new_version_content">نسخه %1$s در کافه بازار منتشر شد.</string>
+    <string name="comment_show">دریافت و نمایش دیدگاه ها</string>
+    <string name="no_comment">دیدگاهی یافت نشد.</string>
+
 </resources>

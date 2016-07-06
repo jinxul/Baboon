@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.givekesh.baboon.R;
+import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
+import com.givekesh.baboon.Utils.Comments.POJOS.Comments;
 import com.spothero.volley.JacksonNetwork;
 import com.spothero.volley.JacksonRequest;
 import com.spothero.volley.JacksonRequestListener;
@@ -115,6 +117,43 @@ public class FeedProvider {
             @Override
             public JavaType getReturnType() {
                 return SimpleType.construct(Posts.class);
+            }
+        }));
+    }
+
+    public void getFeedsArrayList(final int post_id, final Interfaces.CommentsCallBack callBack) {
+
+        if (!utils.isNetworkAvailable()) {
+            callBack.onFailure(mContext.getString(R.string.no_network));
+            return;
+        }
+
+        final ArrayList<Comment> feedsArrayList = new ArrayList<>();
+
+        String url = "http://baboon.ir/wp-json/givekesh/comments/" + post_id;
+
+        mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Comments>>() {
+            @Override
+            public void onResponse(List<Comments> response, int statusCode, VolleyError error) {
+                if (response != null && response.size() > 0) {
+                    for (Comments comments : response) {
+                        final Comment comment = new Comment();
+                        comment.setId(comments.id);
+                        comment.setParent_id(comments.parent_id);
+                        comment.setDate(utils.getPersianDate(comments.date));
+                        comment.setContent(comments.content);
+                        comment.setDisplay_name(comments.author_info.display_name);
+                        comment.setAuthor_avatar(comments.author_info.author_avatar);
+                        feedsArrayList.add(comment);
+                    }
+                    callBack.onSuccess(utils.sortComments(feedsArrayList));
+                } else
+                    callBack.onFailure(mContext.getString(R.string.no_comment));
+            }
+
+            @Override
+            public JavaType getReturnType() {
+                return CollectionType.construct(ArrayList.class, SimpleType.construct(Comments.class));
             }
         }));
     }

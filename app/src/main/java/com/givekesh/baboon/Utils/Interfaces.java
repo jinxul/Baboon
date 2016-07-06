@@ -2,6 +2,8 @@ package com.givekesh.baboon.Utils;
 
 import android.view.MenuItem;
 
+import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
+
 import java.util.ArrayList;
 
 
@@ -19,6 +21,11 @@ public class Interfaces {
 
     public interface SinglePostCallback{
         void onSuccess(Feeds post);
+        void onFailure(String error);
+    }
+
+    public interface CommentsCallBack{
+        void onSuccess(ArrayList<Comment> result);
         void onFailure(String error);
     }
 

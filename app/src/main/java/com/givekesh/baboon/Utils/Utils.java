@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 
 import com.givekesh.baboon.R;
+import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
@@ -20,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -145,5 +147,23 @@ public class Utils {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+    public ArrayList<Comment> sortComments(ArrayList<Comment> data) {
+        ArrayList<Comment> result = new ArrayList<>();
+        HashSet<Integer> map = new HashSet<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            if (result.isEmpty() || !map.contains(data.get(i).getId())) {
+                result.add(data.get(i));
+                map.add(data.get(i).getId());
+            }
+            for (Comment comment : data)
+                if (data.get(i).getId() == comment.getParent_id() && !map.contains(comment.getId())) {
+                    result.add(comment);
+                    map.add(comment.getId());
+                }
+        }
+        return result;
     }
 }
