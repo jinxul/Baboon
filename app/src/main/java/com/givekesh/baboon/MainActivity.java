@@ -92,9 +92,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             @Override
             public boolean onQueryTextSubmit(String query) {
                 search = query;
-                mAdapter.clear();
-                mFeedsArrayList.clear();
-                mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
+                getFeed();
                 return true;
             }
 
@@ -113,10 +111,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             search = null;
         }
         if (item.getItemId() != R.id.action_search) {
-            mAdapter.clear();
-            mFeedsArrayList.clear();
             isMenuSelected = true;
-            mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
+            getFeed();
         }
         return true;
     }
@@ -135,7 +131,11 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             mLeftDrawerLayout.closeDrawer();
         else if (mWaveSwipeRefreshLayout.isRefreshing())
             mWaveSwipeRefreshLayout.setRefreshing(false);
-        else
+        else if (search != null || category != null) {
+            search = null;
+            category = null;
+            getFeed();
+        } else
             super.onBackPressed();
     }
 
@@ -337,9 +337,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     private void loadBasedOnCategory() {
         search = null;
-        mAdapter.clear();
-        mFeedsArrayList.clear();
-        mFeedProvider.getFeedsArrayList(1, category, search, this);
+        getFeed();
     }
 
     private void setLoadMore(int dataSize) {
@@ -348,5 +346,11 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             isLoadingMore = false;
         } else
             recyclerView.enableLoadMore();
+    }
+
+    private void getFeed() {
+        mAdapter.clear();
+        mFeedsArrayList.clear();
+        mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
     }
 }
