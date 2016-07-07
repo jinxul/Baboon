@@ -1,4 +1,4 @@
-package com.givekesh.baboon;
+package com.givekesh.baboon.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,10 +28,11 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.CommentsAdapter;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import com.givekesh.baboon.Utils.FeedProvider;
-import com.givekesh.baboon.Utils.Feeds;
+import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
 import com.givekesh.baboon.Utils.Interfaces;
 import com.givekesh.baboon.Utils.Utils;
 import com.nineoldandroids.view.ViewHelper;

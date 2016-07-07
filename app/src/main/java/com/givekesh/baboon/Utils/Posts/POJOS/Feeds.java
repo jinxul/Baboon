@@ -1,4 +1,4 @@
-package com.givekesh.baboon.Utils;
+package com.givekesh.baboon.Utils.Posts.POJOS;
 
 import android.os.Parcel;
 import android.os.Parcelable;

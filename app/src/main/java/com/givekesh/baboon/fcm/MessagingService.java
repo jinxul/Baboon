@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 
-import com.givekesh.baboon.MainActivity;
+import com.givekesh.baboon.activities.MainActivity;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Utils;
 import com.google.firebase.messaging.FirebaseMessagingService;

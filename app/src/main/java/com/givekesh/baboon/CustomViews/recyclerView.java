@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.givekesh.baboon.R;
-import com.givekesh.baboon.Utils.FeedsAdapter;
+import com.givekesh.baboon.Utils.Posts.FeedsAdapter;
 import com.givekesh.baboon.Utils.Interfaces;
 
 

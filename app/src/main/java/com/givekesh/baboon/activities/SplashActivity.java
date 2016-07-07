@@ -1,4 +1,4 @@
-package com.givekesh.baboon;
+package com.givekesh.baboon.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,8 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.FeedProvider;
-import com.givekesh.baboon.Utils.Feeds;
+import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
 import com.givekesh.baboon.Utils.Interfaces;
 import com.givekesh.baboon.Utils.Utils;
 

@@ -1,4 +1,4 @@
-package com.givekesh.baboon.Utils;
+package com.givekesh.baboon.Utils.Posts;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +18,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.givekesh.baboon.R;
-import com.givekesh.baboon.SelectedPostActivity;
+import com.givekesh.baboon.activities.SelectedPostActivity;
+import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
 
 import java.util.ArrayList;
 import java.util.List;

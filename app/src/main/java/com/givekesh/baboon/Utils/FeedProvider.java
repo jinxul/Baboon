@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.type.SimpleType;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comments;
+import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
+import com.givekesh.baboon.Utils.Posts.POJOS.Posts;
 import com.spothero.volley.JacksonNetwork;
 import com.spothero.volley.JacksonRequest;
 import com.spothero.volley.JacksonRequestListener;

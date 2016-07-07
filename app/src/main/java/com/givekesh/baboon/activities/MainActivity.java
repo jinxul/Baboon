@@ -1,4 +1,4 @@
-package com.givekesh.baboon;
+package com.givekesh.baboon.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -18,9 +18,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.givekesh.baboon.CustomViews.recyclerView;
+import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.FeedProvider;
-import com.givekesh.baboon.Utils.Feeds;
-import com.givekesh.baboon.Utils.FeedsAdapter;
+import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
+import com.givekesh.baboon.Utils.Posts.FeedsAdapter;
 import com.givekesh.baboon.Utils.Interfaces;
 import com.givekesh.baboon.Utils.MainMenu;
 import com.givekesh.baboon.Utils.Utils;
