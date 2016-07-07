@@ -16,7 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <com.givekesh.baboon.CustomViews.textView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/baboon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

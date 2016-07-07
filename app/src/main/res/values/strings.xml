@@ -17,7 +17,7 @@
 
     <string name="no_more_post">مطلبی یافت نشد.</string>
     <string name="first_load">درحال دریافت اطلاعات</string>
-    <string name="baboon_ir">Baboon.ir</string>
+    <string name="baboon">baboon</string>
     <string name="dev_gmail">ahmadgivekesh@gmail.com</string>
     <string name="no_network">عدم دسترسی به شبکه</string>
     <string name="home">صفحه اصلی</string>
@@ -32,7 +32,7 @@
 
     <string name="try_again">دریافت مجدد اطلاعات</string>
     <string name="connection_failed">مشکل در برقراری ارتباط</string>
-    <string name="splash">baboon.ir</string>
+    <string name="baboon_ir">baboon.ir</string>
 
     <string name="instagram_url">https://www.instagram.com/baboon.ir</string>
     <string name="instagram_intent_url">http://instagram.com/_u/baboon.ir</string>

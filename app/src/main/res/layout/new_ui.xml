@@ -13,6 +13,7 @@
             android:id="@+id/author_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:scaleType="centerInside" />
 
@@ -20,31 +21,36 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_toLeftOf="@id/author_avatar"
-            android:paddingRight="10dp">
+            android:layout_toStartOf="@id/author_avatar"
+            android:paddingEnd="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="10dp"
+            android:paddingStart="0dp">
 
             <TextView
                 android:id="@+id/author_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|right"
-                android:textSize="20sp"
+                android:layout_height="25dp"
+                android:gravity="center_vertical|bottom|right"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/post_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:layout_below="@id/author_name"
-                android:gravity="center_vertical|right" />
+                android:gravity="center_vertical|right"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <ImageView
-            android:transitionName="post_image"
             android:id="@+id/post_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_below="@id/author_avatar"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:transitionName="post_image" />
 
         <TextView
             android:id="@+id/post_title"
