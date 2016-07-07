@@ -41,6 +41,7 @@ public class recyclerView extends RecyclerView {
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
             super.onItemRangeRemoved(positionStart, itemCount);
+            previousTotal = 0;
             updateEmptyView();
         }
     };

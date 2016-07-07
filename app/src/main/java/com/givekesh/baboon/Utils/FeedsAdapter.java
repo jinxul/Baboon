@@ -62,6 +62,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void setLoading(boolean loading) {
         isLoading = loading;
+        if (loading && this.loading != null)
+            this.loading.setVisibility(View.VISIBLE);
     }
 
     public void disableLoading() {

@@ -44,12 +44,13 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private FeedProvider mFeedProvider;
     private recyclerView recyclerView;
 
-    private boolean isFirstLoad = true;
     private boolean isLoadingMore = false;
     private boolean isSwipeRefresh = false;
+    private boolean isMenuSelected = false;
 
     private String category = null;
     private String search = null;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         init();
 
         mFeedsArrayList = getIntent().getParcelableArrayListExtra("main_feed");
-        refreshRecycler();
+        refreshRecycler(mFeedsArrayList.size());
     }
 
     @Override
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mFeedsArrayList = savedInstanceState.getParcelableArrayList("main_feed");
-        refreshRecycler();
+        refreshRecycler(mFeedsArrayList.size());
     }
 
     @Override
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             public boolean onQueryTextSubmit(String query) {
                 search = query;
                 mAdapter.clear();
+                mFeedsArrayList.clear();
                 mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
                 return true;
             }
@@ -112,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         }
         if (item.getItemId() != R.id.action_search) {
             mAdapter.clear();
+            mFeedsArrayList.clear();
+            isMenuSelected = true;
             mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
         }
         return true;
@@ -143,24 +147,14 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     @Override
     public void onSuccess(ArrayList<Feeds> result) {
         if (result != null) {
-            if (result.size() < 10) {
-                recyclerView.disableLoadMore();
-                isLoadingMore = false;
-            } else
-                recyclerView.enableLoadMore();
-
             if (isSwipeRefresh) {
                 mFeedsArrayList.clear();
                 mWaveSwipeRefreshLayout.setRefreshing(false);
                 isSwipeRefresh = false;
             }
-            if (isFirstLoad) {
-                mFeedsArrayList = result;
-                isFirstLoad = false;
-            } else
-                mFeedsArrayList.addAll(result);
 
-            refreshRecycler();
+            mFeedsArrayList.addAll(result);
+            refreshRecycler(result.size());
         }
     }
 
@@ -292,6 +286,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         recyclerView.setOnLoadMoreListener(new Interfaces.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount) {
+                if ((category != null || search != null || isMenuSelected) && itemsCount <= 10) {
+                    isMenuSelected = false;
+                    return;
+                }
                 isLoadingMore = true;
                 mFeedProvider.getFeedsArrayList(getPage(itemsCount), category, search, MainActivity.this);
             }
@@ -332,14 +330,23 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         return (itemCount / 10) + 1;
     }
 
-    private void refreshRecycler() {
+    private void refreshRecycler(int size) {
+        setLoadMore(size);
         mAdapter.refresh(mFeedsArrayList);
     }
 
     private void loadBasedOnCategory() {
         search = null;
-        isFirstLoad = true;
         mAdapter.clear();
+        mFeedsArrayList.clear();
         mFeedProvider.getFeedsArrayList(1, category, search, this);
+    }
+
+    private void setLoadMore(int dataSize) {
+        if (dataSize < 10) {
+            recyclerView.disableLoadMore();
+            isLoadingMore = false;
+        } else
+            recyclerView.enableLoadMore();
     }
 }
