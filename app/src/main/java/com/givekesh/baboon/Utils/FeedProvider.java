@@ -64,7 +64,7 @@ public class FeedProvider {
                         feeds.setId(post.id);
                         feeds.setTitle(post.title.rendered);
                         feeds.setAuthor(post.author_info.display_name);
-                        feeds.setPost(parsContent(post.content.rendered));
+                        feeds.setPost(post.content.rendered);
                         feeds.setDate(utils.getPersianDate(post.date));
                         feeds.setContentImage(post.image.source_url);
                         feeds.setExcerpt(post.excerpt.rendered);
@@ -105,7 +105,7 @@ public class FeedProvider {
                     feed.setId(post.id);
                     feed.setTitle(post.title.rendered);
                     feed.setAuthor(post.author_info.display_name);
-                    feed.setPost(parsContent(post.content.rendered));
+                    feed.setPost(post.content.rendered);
                     feed.setDate(utils.getPersianDate(post.date));
                     feed.setContentImage(post.image.source_url);
                     feed.setExcerpt(post.excerpt.rendered);
@@ -158,18 +158,5 @@ public class FeedProvider {
                 return CollectionType.construct(ArrayList.class, SimpleType.construct(Comments.class));
             }
         }));
-    }
-
-    private String removeYoutubeVideos(String input) {
-        return input.contains("[su_youtube") ?
-                input.replace(input.substring(input.indexOf("[su_youtube")), "") : input;
-    }
-
-    private String setCodeBox(String input) {
-        return input.replaceAll("<pre class=\"lang:.* decode:true.*\">", "<pre dir=\"ltr\" class=\"prettyprint linenums\">");
-    }
-
-    private String parsContent(String input) {
-        return setCodeBox(removeYoutubeVideos(input));
     }
 }
