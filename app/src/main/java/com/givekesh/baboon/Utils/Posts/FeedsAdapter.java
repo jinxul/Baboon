@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -102,19 +100,10 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((newHolder) holder).post_date.setText(feed.getDate());
             ((newHolder) holder).post_title.setText(Html.fromHtml(feed.getTitle()));
             ((newHolder) holder).post_excerpt.setText(Html.fromHtml(feed.getExcerpt().replace("<p>", "<p align=\"justify\">")));
-            ((newHolder) holder).full_article.setOnTouchListener(new View.OnTouchListener() {
+            ((newHolder) holder).full_article.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    switch (motionEvent.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            ((newHolder) holder).full_article.setCardElevation(0f);
-                            showPost(feed, (newHolder) holder);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            ((newHolder) holder).full_article.setCardElevation(5f);
-                            break;
-                    }
-                    return true;
+                public void onClick(View view) {
+                    showPost(feed, (newHolder) holder);
                 }
             });
             ((newHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +154,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView post_date;
         private TextView post_title;
         private TextView post_excerpt;
-        private CardView full_article;
+        private TextView full_article;
 
         public newHolder(View itemView) {
             super(itemView);
@@ -175,7 +164,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             post_date = (TextView) itemView.findViewById(R.id.post_date);
             post_title = (TextView) itemView.findViewById(R.id.post_title);
             post_excerpt = (TextView) itemView.findViewById(R.id.post_excerpt);
-            full_article = (CardView) itemView.findViewById(R.id.full_article);
+            full_article = (TextView) itemView.findViewById(R.id.full_article);
         }
     }
 }
