@@ -167,41 +167,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
             settings.setDisplayZoomControls(false);
 
         content.setWebChromeClient(new mWebChromeClient());
-        content.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.matches("http?://(www\\.)?baboon.ir/([-a-zA-Z0-9@:%_\\+.~#?&/=]*)")) {
-                    final ProgressDialog dialog = ProgressDialog.show(SelectedPostActivity.this, null, getString(R.string.first_load), true);
-                    new FeedProvider(SelectedPostActivity.this).getSinglePost(url, new Interfaces.SinglePostCallback() {
-
-                        @Override
-                        public void onSuccess(Feeds post) {
-                            dialog.dismiss();
-                            Intent intent = new Intent(SelectedPostActivity.this, SelectedPostActivity.class);
-                            intent.putExtra("post_parcelable", post);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailure(String error) {
-                            Toast.makeText(SelectedPostActivity.this, R.string.not_found, Toast.LENGTH_LONG).show();
-                            dialog.dismiss();
-                        }
-                    });
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(url));
-                    startActivity(intent);
-                }
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                loadComments.setVisibility(View.VISIBLE);
-            }
-        });
+        content.setWebViewClient(new mWebViewClient());
     }
 
     private void setUseTextAutoSize() {
@@ -259,6 +225,42 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
             customViewCallback.onCustomViewHidden();
 
             mCustomView = null;
+        }
+    }
+
+    private class mWebViewClient extends WebViewClient{
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.matches("http?://(www\\.)?baboon.ir/([-a-zA-Z0-9@:%_\\+.~#?&/=]*)")) {
+                final ProgressDialog dialog = ProgressDialog.show(SelectedPostActivity.this, null, getString(R.string.first_load), true);
+                new FeedProvider(SelectedPostActivity.this).getSinglePost(url, new Interfaces.SinglePostCallback() {
+
+                    @Override
+                    public void onSuccess(Feeds post) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(SelectedPostActivity.this, SelectedPostActivity.class);
+                        intent.putExtra("post_parcelable", post);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        Toast.makeText(SelectedPostActivity.this, R.string.not_found, Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                });
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            loadComments.setVisibility(View.VISIBLE);
         }
     }
 }
