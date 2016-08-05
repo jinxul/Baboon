@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         init();
 
         mFeedsArrayList = getIntent().getParcelableArrayListExtra("main_feed");
-        refreshRecycler(mFeedsArrayList.size());
+        if (mFeedsArrayList != null)
+            refreshRecycler(mFeedsArrayList.size());
+        else
+            mFeedProvider.getFeedsArrayList(0, category, search, this);
     }
 
     @Override
@@ -76,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mFeedsArrayList = savedInstanceState.getParcelableArrayList("main_feed");
-        refreshRecycler(mFeedsArrayList.size());
+        if (mFeedsArrayList != null)
+            refreshRecycler(mFeedsArrayList.size());
     }
 
     @Override
