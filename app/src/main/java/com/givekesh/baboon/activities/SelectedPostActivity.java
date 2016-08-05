@@ -17,6 +17,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -50,6 +51,10 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private int mParallaxImageHeight;
     private Feeds feed;
     private ActionProcessButton loadComments;
+    private FrameLayout customViewContainer;
+    private View mCustomView;
+    private WebChromeClient.CustomViewCallback customViewCallback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,8 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
 
         content = (ObservableWebView) findViewById(R.id.post_content);
+        customViewContainer = (FrameLayout) findViewById(R.id.video_fullscreen);
+
         setUpWebViewDefaults();
         setUseTextAutoSize();
         content.loadDataWithBaseURL("file:///android_asset/", getHtmlData(), "text/html", "UTF-8", null);
@@ -154,11 +161,12 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         settings.setLoadWithOverviewMode(true);
         settings.setBuiltInZoomControls(true);
         settings.setJavaScriptEnabled(true);
+        settings.setAppCacheEnabled(true);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB)
             settings.setDisplayZoomControls(false);
 
-        content.setWebChromeClient(new WebChromeClient());
+        content.setWebChromeClient(new mWebChromeClient());
         content.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -220,5 +228,37 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     public void onBackPressed() {
         supportFinishAfterTransition();
         super.onBackPressed();
+    }
+
+    private class mWebChromeClient extends WebChromeClient{
+        @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            if (mCustomView != null) {
+                callback.onCustomViewHidden();
+                return;
+            }
+            mCustomView = view;
+            content.setVisibility(View.GONE);
+            customViewContainer.setVisibility(View.VISIBLE);
+            customViewContainer.addView(view);
+            customViewCallback = callback;
+        }
+
+        @Override
+        public void onHideCustomView() {
+            super.onHideCustomView();
+            if (mCustomView == null)
+                return;
+
+            content.setVisibility(View.VISIBLE);
+            customViewContainer.setVisibility(View.GONE);
+
+            mCustomView.setVisibility(View.GONE);
+
+            customViewContainer.removeView(mCustomView);
+            customViewCallback.onCustomViewHidden();
+
+            mCustomView = null;
+        }
     }
 }
