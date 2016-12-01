@@ -120,8 +120,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         intent.putExtra("post_parcelable", feed);
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(mActivity, holder.post_image, "post_image");
-        mActivity.startActivity(intent, options.toBundle());
-
+        mActivity.startActivityForResult(intent, 10001, options.toBundle());
     }
 
     @Override

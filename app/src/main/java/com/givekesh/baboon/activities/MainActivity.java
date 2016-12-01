@@ -2,6 +2,7 @@ package com.givekesh.baboon.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 break;
 
             case R.id.symfony:
-                category = "syfmony";
+                category = "symfony";
                 break;
         }
         loadBasedOnCategory();
@@ -357,5 +358,14 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         mAdapter.clear();
         mFeedsArrayList.clear();
         mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bundle extras = getIntent().getExtras();
+        if (requestCode == 10001 && resultCode == 10001 && extras != null) {
+            category = extras.getString("category");
+            loadBasedOnCategory();
+        }
     }
 }

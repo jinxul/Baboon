@@ -86,7 +86,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
 
         loadComments = (ActionProcessButton) findViewById(R.id.show_comments);
         final RecyclerView comments = (RecyclerView) findViewById(R.id.comment_list);
-        comments.setLayoutManager(new LinearLayoutManager(this){
+        comments.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -196,7 +196,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         super.onBackPressed();
     }
 
-    private class mWebChromeClient extends WebChromeClient{
+    private class mWebChromeClient extends WebChromeClient {
         @Override
         public void onShowCustomView(View view, CustomViewCallback callback) {
             if (mCustomView != null) {
@@ -228,27 +228,37 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         }
     }
 
-    private class mWebViewClient extends WebViewClient{
+    private class mWebViewClient extends WebViewClient {
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url.matches("http?://(www\\.)?baboon.ir/([-a-zA-Z0-9@:%_\\+.~#?&/=]*)")) {
+            if (url.matches("http?://(www\\.)?baboon.ir/([-a-zA-Z0-9@:%_+.~#?&/=]*)")) {
                 final ProgressDialog dialog = ProgressDialog.show(SelectedPostActivity.this, null, getString(R.string.first_load), true);
-                new FeedProvider(SelectedPostActivity.this).getSinglePost(url, new Interfaces.SinglePostCallback() {
+                if (url.contains("/tutorials/")) {
+                    String category = url.replaceAll("(http://)?(www\\.)?baboon.ir/tutorials/", "").replaceAll("/", "");
+                    Intent intent = new Intent(SelectedPostActivity.this, MainActivity.class);
+                    intent.putExtra("category", category);
+                    setResult(10001, intent);
+                    dialog.dismiss();
+                    finish();
+                } else {
+                    new FeedProvider(SelectedPostActivity.this).getSinglePost(url, new Interfaces.SinglePostCallback() {
 
-                    @Override
-                    public void onSuccess(Feeds post) {
-                        dialog.dismiss();
-                        Intent intent = new Intent(SelectedPostActivity.this, SelectedPostActivity.class);
-                        intent.putExtra("post_parcelable", post);
-                        startActivity(intent);
-                    }
+                        @Override
+                        public void onSuccess(Feeds post) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(SelectedPostActivity.this, SelectedPostActivity.class);
+                            intent.putExtra("post_parcelable", post);
+                            startActivity(intent);
+                        }
 
-                    @Override
-                    public void onFailure(String error) {
-                        Toast.makeText(SelectedPostActivity.this, R.string.not_found, Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                    }
-                });
+                        @Override
+                        public void onFailure(String error) {
+                            Toast.makeText(SelectedPostActivity.this, R.string.not_found, Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                        }
+                    });
+                }
             } else {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
