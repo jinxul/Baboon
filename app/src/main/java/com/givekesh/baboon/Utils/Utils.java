@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 
-import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,14 +34,7 @@ public class Utils {
         mContext = context;
     }
 
-    public Drawable getMaterialIcon(MaterialDrawableBuilder.IconValue iconValue, int color) {
-        return MaterialDrawableBuilder.with(mContext)
-                .setIcon(iconValue)
-                .setColor(color)
-                .build();
-    }
-
-    public String getPersianDate(String input) {
+    String getPersianDate(String input) {
         try {
             Date date = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss", Locale.ENGLISH).parse(input);
             long julianDate = ((long) Math.floor((date.getTime() - MILLIS_JULIAN_EPOCH)) / MILLIS_OF_A_DAY);
@@ -149,7 +140,7 @@ public class Utils {
         }
     }
 
-    public ArrayList<Comment> sortComments(ArrayList<Comment> data) {
+    ArrayList<Comment> sortComments(ArrayList<Comment> data) {
         ArrayList<Comment> result = new ArrayList<>();
         HashSet<Integer> map = new HashSet<>();
 

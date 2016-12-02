@@ -4,16 +4,19 @@
 
     <item
         android:id="@+id/action_search"
+        android:icon="@drawable/ic_magnify"
         android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
     <item
         android:id="@+id/refresh"
+        android:icon="@drawable/ic_refresh"
         android:title="@string/refresh"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/homePage"
+        android:icon="@drawable/ic_home"
         android:title="@string/home"
         app:showAsAction="ifRoom" />
 

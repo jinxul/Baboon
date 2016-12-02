@@ -2,10 +2,10 @@ package com.givekesh.baboon.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,10 +35,8 @@ import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import com.givekesh.baboon.Utils.FeedProvider;
 import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
 import com.givekesh.baboon.Utils.Interfaces;
-import com.givekesh.baboon.Utils.Utils;
 import com.nineoldandroids.view.ViewHelper;
 
-import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.util.ArrayList;
 
@@ -118,11 +116,10 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     }
 
     private void setupToolbar() {
-        Utils utils = new Utils(this);
         mToolbarView = (Toolbar) findViewById(R.id.toolbar);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, ContextCompat.getColor(this, R.color.colorPrimary)));
         mToolbarView.setTitle(Html.fromHtml(feed.getTitle()));
-        mToolbarView.setNavigationIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.KEYBOARD_BACKSPACE, Color.WHITE));
+        mToolbarView.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_keyboard_backspace, null));
         mToolbarView.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

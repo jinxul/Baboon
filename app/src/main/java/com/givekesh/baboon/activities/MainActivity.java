@@ -3,10 +3,10 @@ package com.givekesh.baboon.activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,8 +28,6 @@ import com.givekesh.baboon.Utils.MainMenu;
 import com.givekesh.baboon.Utils.Utils;
 import com.mxn.soul.flowingdrawer_core.FlowingView;
 import com.mxn.soul.flowingdrawer_core.LeftDrawerLayout;
-
-import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.util.ArrayList;
 
@@ -121,14 +119,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             getFeed();
         }
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.refresh).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.REFRESH, Color.WHITE));
-        menu.findItem(R.id.homePage).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.HOME, Color.WHITE));
-        menu.findItem(R.id.action_search).setIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.MAGNIFY, Color.WHITE));
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -317,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(utils.getMaterialIcon(MaterialDrawableBuilder.IconValue.MENU, Color.WHITE));
+        toolbar.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, null));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
