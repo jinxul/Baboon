@@ -163,8 +163,8 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         settings.setJavaScriptEnabled(true);
         settings.setAppCacheEnabled(true);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB)
-            settings.setDisplayZoomControls(false);
+
+        settings.setDisplayZoomControls(false);
 
         content.setWebChromeClient(new mWebChromeClient());
         content.setWebViewClient(new mWebViewClient());
