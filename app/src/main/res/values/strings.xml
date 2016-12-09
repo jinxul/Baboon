@@ -32,7 +32,6 @@
 
     <string name="try_again">دریافت مجدد اطلاعات</string>
     <string name="connection_failed">مشکل در برقراری ارتباط</string>
-    <string name="baboon_ir">baboon.ir</string>
 
     <string name="instagram_url">https://www.instagram.com/baboon.ir</string>
     <string name="instagram_intent_url">http://instagram.com/_u/baboon.ir</string>

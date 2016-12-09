@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="@string/baboon_ir"
+            android:text="@string/baboon"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             app:type="Pacifico" />
@@ -26,7 +26,7 @@
             android:layout_height="100dp"
             android:layout_above="@id/splash"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/splash" />
+            android:src="@mipmap/ic_launcher" />
 
         <include
             layout="@layout/loading"
