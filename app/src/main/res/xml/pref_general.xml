@@ -3,7 +3,7 @@
     <ListPreference
         android:defaultValue="1"
         android:entries="@array/pref_posts_per_page_titles"
-        android:entryValues="@array/pref_values"
+        android:entryValues="@array/pref_posts_per_page"
         android:key="pref_posts_per_page"
         android:layout="@layout/pref_list"
         android:negativeButtonText="@string/ok"
@@ -23,7 +23,7 @@
     <ListPreference
         android:defaultValue="3"
         android:entries="@array/pref_font_titles"
-        android:entryValues="@array/pref_values"
+        android:entryValues="@array/pref_font"
         android:key="pref_font"
         android:layout="@layout/pref_list"
         android:negativeButtonText="@string/ok"
