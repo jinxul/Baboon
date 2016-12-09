@@ -4,12 +4,14 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
@@ -29,9 +31,11 @@ public class Utils {
     private static final long MILLIS_JULIAN_EPOCH = -210866803200000L;
     private static final long MILLIS_OF_A_DAY = 86400000L;
     private final Context mContext;
+    private SharedPreferences pref;
 
     public Utils(Context context) {
         mContext = context;
+        pref = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
     String getPersianDate(String input) {
@@ -156,5 +160,19 @@ public class Utils {
                 }
         }
         return result;
+    }
+
+    public int getPostsPerPage() {
+        int value = Integer.parseInt(pref.getString("pref_posts_per_page", "1"));
+        switch (value) {
+            case 0:
+                return 5;
+            case 1:
+                return 10;
+            case 2:
+                return 15;
+            default:
+                return 20;
+        }
     }
 }

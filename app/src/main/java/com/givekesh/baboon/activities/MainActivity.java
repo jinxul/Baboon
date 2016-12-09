@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     private String category = null;
     private String search = null;
-
+    private int postsPerPage = 10;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     private void init() {
         utils = new Utils(this);
+        postsPerPage = utils.getPostsPerPage();
         setupToolbar();
         setupMenu();
         setupContent();
@@ -286,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         recyclerView.setOnLoadMoreListener(new Interfaces.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount) {
-                if ((category != null || search != null || isMenuSelected) && itemsCount <= 10) {
+                if ((category != null || search != null || isMenuSelected) && itemsCount <= postsPerPage) {
                     isMenuSelected = false;
                     return;
                 }
@@ -327,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private int getPage(int itemCount) {
-        return (itemCount / 10) + 1;
+        return (itemCount / postsPerPage) + 1;
     }
 
     private void refreshRecycler(int size) {
@@ -341,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private void setLoadMore(int dataSize) {
-        if (dataSize < 10) {
+        if (dataSize < postsPerPage) {
             recyclerView.disableLoadMore();
             isLoadingMore = false;
         } else

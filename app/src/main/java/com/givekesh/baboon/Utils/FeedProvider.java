@@ -48,7 +48,7 @@ public class FeedProvider {
 
         String category_name = category != null ? "category_name=" + category + "&" : "";
         String Search = search != null ? "search=" + search + "&" : "";
-        String url = "http://baboon.ir/wp-json/givekesh/posts?" + category_name + Search + "page=" + page;
+        String url = "http://baboon.ir/wp-json/givekesh/posts?" + category_name + Search + "per_page=" + utils.getPostsPerPage() + "&page=" + page;
 
         mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Posts>>() {
             @Override
