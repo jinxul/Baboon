@@ -27,21 +27,23 @@
             android:paddingRight="10dp"
             android:paddingStart="0dp">
 
-            <TextView
+            <com.givekesh.baboon.CustomViews.textView
                 android:id="@+id/author_name"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:gravity="center_vertical|bottom|right"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:type="Tanha" />
 
-            <TextView
+            <com.givekesh.baboon.CustomViews.textView
                 android:id="@+id/post_date"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_below="@id/author_name"
                 android:gravity="center_vertical|right"
-                android:textSize="12sp" />
+                android:textSize="14sp"
+                app:type="Tanha" />
         </RelativeLayout>
 
         <ImageView
@@ -52,7 +54,7 @@
             android:scaleType="fitXY"
             android:transitionName="post_image" />
 
-        <TextView
+        <com.givekesh.baboon.CustomViews.textView
             android:id="@+id/post_title"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -61,19 +63,25 @@
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|right"
             android:maxLines="1"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:type="Tanha"
+            android:textSize="16sp"/>
 
-        <TextView
+        <com.givekesh.baboon.CustomViews.textView
             android:id="@+id/post_excerpt"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="70dp"
             android:layout_below="@id/post_title"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:gravity="center_vertical|right" />
+            android:gravity="center_vertical|right"
+            android:lines="4"
+            app:type="Tanha"
+            android:textSize="16sp"/>
 
 
-        <TextView
+        <com.givekesh.baboon.CustomViews.textView
             android:id="@+id/full_article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +92,8 @@
             android:padding="16dp"
             android:text="@string/full_article"
             android:textColor="#ffab40"
-            android:textSize="10pt" />
+            android:textSize="10pt"
+            app:type="Tanha" />
 
     </RelativeLayout>
 

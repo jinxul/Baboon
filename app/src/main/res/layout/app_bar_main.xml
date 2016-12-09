@@ -24,7 +24,8 @@
                 android:gravity="center_vertical"
                 android:text="@string/baboon"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                app:type="Pacifico" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

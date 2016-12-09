@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.givekesh.baboon"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 8
         versionName "3.1"
