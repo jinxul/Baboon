@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 return;
 
             case R.id.settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                startActivityForResult(new Intent(this, SettingsActivity.class), 10002);
                 return;
 
             case R.id.html:
@@ -361,6 +361,13 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         if (requestCode == 10001 && resultCode == 10001 && extras != null) {
             category = extras.getString("category");
             loadBasedOnCategory();
+        }
+        if (requestCode == 10002) {
+            recyclerView.setAdapter(null);
+            recyclerView.setLayoutManager(null);
+            recyclerView.setAdapter(mAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -96,6 +96,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         setupActionBar();
     }
 
+    @Override
+    protected void onDestroy() {
+        setResult(10002);
+        super.onDestroy();
+    }
+
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */

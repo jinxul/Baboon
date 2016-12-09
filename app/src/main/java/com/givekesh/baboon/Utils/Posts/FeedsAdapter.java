@@ -3,6 +3,7 @@ package com.givekesh.baboon.Utils.Posts;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.transition.AutoTransition;
 import android.support.transition.Transition;
@@ -44,7 +45,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM)
-            return new newHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.updated_layout, parent, false));
+            return new newHolder(LayoutInflater.from(parent.getContext()).inflate(getLayout(), parent, false));
         return new mHolderFooter(loading = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar, parent, false));
     }
 
@@ -53,6 +54,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (isPositionFooter(position))
             return TYPE_FOOTER;
         return TYPE_ITEM;
+    }
+
+    private int getLayout() {
+        int value = Integer.parseInt(
+                PreferenceManager.getDefaultSharedPreferences(mActivity).getString("pref_ui", "0"));
+        return value == 0 ? R.layout.updated_layout : R.layout.new_ui;
     }
 
     private boolean isPositionFooter(int position) {
