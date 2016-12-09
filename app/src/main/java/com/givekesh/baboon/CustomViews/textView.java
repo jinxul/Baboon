@@ -3,6 +3,7 @@ package com.givekesh.baboon.CustomViews;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -24,7 +25,11 @@ public class textView extends TextView {
     public textView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.textView, defStyleAttr, 0);
-        mType = styledAttributes.getInt(R.styleable.textView_type, 0);
+        if (getId() == R.id.post_title || getId() == R.id.post_excerpt ||
+                getId() == R.id.author_name || getId() == R.id.post_date)
+            mType = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString("pref_font", "0"));
+        else
+            mType = styledAttributes.getInt(R.styleable.textView_type, 0);
         styledAttributes.recycle();
         setTypeFace();
     }
@@ -34,6 +39,10 @@ public class textView extends TextView {
         float textSize = getTextSize() / getResources().getDisplayMetrics().scaledDensity;
         if (mType == 0)
             textSize -= 3.5;
+        else if (mType == 2)
+            textSize -= 1.5;
+        else if (mType == 3)
+            textSize -= 1.2;
         setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
     }
 
