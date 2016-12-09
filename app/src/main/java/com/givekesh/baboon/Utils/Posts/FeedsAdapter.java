@@ -3,6 +3,10 @@ package com.givekesh.baboon.Utils.Posts;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.support.annotation.NonNull;
+import android.support.transition.AutoTransition;
+import android.support.transition.Transition;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 
@@ -40,7 +44,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM)
-            return new newHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_ui, parent, false));
+            return new newHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.updated_layout, parent, false));
         return new mHolderFooter(loading = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar, parent, false));
     }
 
@@ -82,15 +86,61 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof newHolder) {
             final Feeds feed = mFeeds.get(position);
-            Glide.with(mActivity)
-                    .load(feed.getAuthor_avatar())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(((newHolder) holder).author_avatar);
+            if (((newHolder) holder).author_avatar != null) {
+                Glide.with(mActivity)
+                        .load(feed.getAuthor_avatar())
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(((newHolder) holder).author_avatar);
+
+                ((newHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showPost(feed, ((newHolder) holder).post_image);
+                    }
+                });
+            } else {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final int visibility = ((newHolder) holder).post_excerpt.getVisibility() == View.GONE ? View.VISIBLE : View.INVISIBLE;
+                        Transition transition = new AutoTransition().setDuration(500).addListener(new Transition.TransitionListener() {
+                            @Override
+                            public void onTransitionStart(@NonNull Transition transition) {
+
+                            }
+
+                            @Override
+                            public void onTransitionEnd(@NonNull Transition transition) {
+                                if (visibility == View.INVISIBLE)
+                                    ((newHolder) holder).post_excerpt.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onTransitionCancel(@NonNull Transition transition) {
+
+                            }
+
+                            @Override
+                            public void onTransitionPause(@NonNull Transition transition) {
+
+                            }
+
+                            @Override
+                            public void onTransitionResume(@NonNull Transition transition) {
+
+                            }
+                        });
+                        TransitionManager.beginDelayedTransition((ViewGroup) ((newHolder) holder).itemView, transition);
+                        ((newHolder) holder).post_excerpt.setVisibility(visibility);
+                    }
+                });
+            }
             Glide.with(mActivity)
                     .load(feed.getContentImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -103,23 +153,17 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((newHolder) holder).full_article.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showPost(feed, (newHolder) holder);
-                }
-            });
-            ((newHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPost(feed, (newHolder) holder);
+                    showPost(feed, ((newHolder) holder).post_image);
                 }
             });
         }
     }
 
-    private void showPost(Feeds feed, newHolder holder) {
+    private void showPost(Feeds feed, View view) {
         Intent intent = new Intent(mActivity, SelectedPostActivity.class);
         intent.putExtra("post_parcelable", feed);
         ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(mActivity, holder.post_image, "post_image");
+                makeSceneTransitionAnimation(mActivity, view, "post_image");
         mActivity.startActivityForResult(intent, 10001, options.toBundle());
     }
 
@@ -140,7 +184,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     private class mHolderFooter extends RecyclerView.ViewHolder {
-        public mHolderFooter(View itemView) {
+        mHolderFooter(View itemView) {
             super(itemView);
         }
     }
@@ -155,7 +199,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView post_excerpt;
         private TextView full_article;
 
-        public newHolder(View itemView) {
+        newHolder(View itemView) {
             super(itemView);
             author_avatar = (ImageView) itemView.findViewById(R.id.author_avatar);
             post_image = (ImageView) itemView.findViewById(R.id.post_image);

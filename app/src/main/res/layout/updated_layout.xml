@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="6dp">
+
+        <ImageView
+            android:id="@+id/post_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:transitionName="post_image" />
+
+        <com.givekesh.baboon.CustomViews.textView
+            android:id="@+id/post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/post_image"
+            android:layout_toStartOf="@id/post_image"
+            android:gravity="center_vertical|right"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:type="Tanha" />
+
+        <com.givekesh.baboon.CustomViews.textView
+            android:id="@+id/author_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toLeftOf="@id/post_image"
+            android:layout_toStartOf="@id/post_image"
+            android:gravity="center_vertical|right"
+            android:lines="1"
+            android:maxHeight="70dp"
+            android:textSize="13sp"
+            app:type="Tanha" />
+
+        <com.givekesh.baboon.CustomViews.textView
+            android:id="@+id/post_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/author_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_toLeftOf="@id/post_image"
+            android:layout_toStartOf="@id/post_image"
+            android:gravity="center_vertical|right"
+            android:lines="1"
+            android:maxHeight="70dp"
+            android:textSize="14sp"
+            app:type="Tanha" />
+
+        <com.givekesh.baboon.CustomViews.textView
+            android:id="@+id/post_excerpt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_image"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical|right"
+            android:lines="3"
+            android:maxHeight="70dp"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:type="Tanha" />
+
+        <com.givekesh.baboon.CustomViews.textView
+            android:id="@+id/full_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/post_excerpt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="@string/full_article"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="8pt"
+            android:visibility="visible"
+            app:type="Tanha" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.bottom = getResources().getDimensionPixelOffset(R.dimen.activity_vertical_margin);
+                outRect.bottom = getResources().getDimensionPixelOffset(R.dimen.cards_margin);
             }
         });
 
