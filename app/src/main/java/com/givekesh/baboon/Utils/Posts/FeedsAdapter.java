@@ -156,6 +156,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     showPost(feed, ((newHolder) holder).post_image);
                 }
             });
+            ((newHolder) holder).post_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPost(feed, ((newHolder) holder).post_image);
+                }
+            });
         }
     }
 
