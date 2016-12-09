@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_post"
+        android:layout="@layout/pref_switch"
+        android:summaryOff="@string/off"
+        android:summaryOn="@string/on"
+        android:title="@string/notification_new_post" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_version"
+        android:layout="@layout/pref_switch"
+        android:summaryOff="@string/off"
+        android:summaryOn="@string/on"
+        android:title="@string/notifications_new_version" />
+
+</PreferenceScreen>

@@ -68,4 +68,11 @@
         </menu>
     </item>
 
+    <item android:title="@string/setting">
+        <menu>
+            <item android:id="@+id/settings"
+                android:title="@string/setting"/>
+        </menu>
+    </item>
+
 </menu>

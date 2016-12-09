@@ -14,4 +14,35 @@
         <item>بهمن</item>
         <item>اسفند</item>
     </string-array>
+
+    <string-array name="pref_posts_per_page_titles">
+        <item>5</item>
+        <item>10 (پیش فرض)</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="pref_ui_titles">
+        <item>جدید (پیش فرض)</item>
+        <item>قدیمی</item>
+    </string-array>
+
+    <string-array name="pref_ui">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="pref_font_titles">
+        <item>Pacifico</item>
+        <item>Roboto</item>
+        <item>BNazanin</item>
+        <item>Tanha (پیش فرض)</item>
+    </string-array>
+
+    <string-array name="pref_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

@@ -189,6 +189,10 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 utils.openMailChooser();
                 return;
 
+            case R.id.settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return;
+
             case R.id.html:
                 category = "html-css";
                 break;

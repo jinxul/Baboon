@@ -43,4 +43,18 @@
     <string name="comment_show">دریافت و نمایش دیدگاه ها</string>
     <string name="no_comment">دیدگاهی یافت نشد.</string>
 
+    <string name="pref_font">انتخاب فونت</string>
+    <string name="pref_posts_per_page">تعداد پست ها</string>
+    <string name="pref_ui">انتخاب رابط کاربری</string>
+
+    <string name="setting">تنظیمات</string>
+    <string name="notification_new_post">آگاه سازی از پست جدید</string>
+    <string name="notifications_new_version">آگاه سازی از ورژن جدید</string>
+    <string name="general_settings">تنظیمات عمومی</string>
+    <string name="notification_settings">تنظیمات آگاه سازی ها</string>
+
+    <string name="ok">تایید</string>
+    <string name="cancel">لغو</string>
+    <string name="off">غیرفعال</string>
+    <string name="on">فعال</string>
 </resources>
