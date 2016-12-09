@@ -4,8 +4,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 
@@ -20,14 +22,18 @@ public class MessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage.getData().containsKey("new_version"))
-            sendNotification(new Utils(this).getBazaarIntent(),
-                    String.format(getString(R.string.new_version_content), remoteMessage.getData().get("new_version")),
-                    getString(R.string.new_version_title));
-        else
-            sendNotification(new Intent(this, MainActivity.class),
-                    remoteMessage.getNotification().getBody(),
-                    remoteMessage.getNotification().getTitle());
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        if (remoteMessage.getData().containsKey("new_version")) {
+            if (pref.getBoolean("notifications_new_version", true))
+                sendNotification(new Utils(this).getBazaarIntent(),
+                        String.format(getString(R.string.new_version_content), remoteMessage.getData().get("new_version")),
+                        getString(R.string.new_version_title));
+        } else {
+            if (pref.getBoolean("notifications_new_post", true))
+                sendNotification(new Intent(this, MainActivity.class),
+                        remoteMessage.getNotification().getBody(),
+                        remoteMessage.getNotification().getTitle());
+        }
     }
 
     private void sendNotification(Intent intent, String messageBody, String title) {
