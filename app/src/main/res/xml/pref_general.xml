@@ -1,16 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:defaultValue="1"
-        android:entries="@array/pref_posts_per_page_titles"
-        android:entryValues="@array/pref_posts_per_page"
-        android:key="pref_posts_per_page"
-        android:layout="@layout/pref_list"
-        android:negativeButtonText="@string/ok"
-        android:positiveButtonText="@string/cancel"
-        android:title="@string/pref_posts_per_page" />
-
-    <ListPreference
         android:defaultValue="0"
         android:entries="@array/pref_ui_titles"
         android:entryValues="@array/pref_ui"
@@ -30,4 +20,14 @@
         android:positiveButtonText="@string/cancel"
         android:title="@string/pref_font" />
 
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/pref_posts_per_page_titles"
+        android:entryValues="@array/pref_posts_per_page"
+        android:key="pref_posts_per_page"
+        android:layout="@layout/pref_list"
+        android:negativeButtonText="@string/ok"
+        android:positiveButtonText="@string/cancel"
+        android:title="@string/pref_posts_per_page" />
+    
 </PreferenceScreen>
