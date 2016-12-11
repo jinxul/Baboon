@@ -175,4 +175,8 @@ public class Utils {
                 return 20;
         }
     }
+
+    public boolean shouldNotify(String key){
+        return pref.getBoolean(key, true);
+    }
 }
