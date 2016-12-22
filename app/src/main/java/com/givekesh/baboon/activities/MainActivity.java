@@ -357,8 +357,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bundle extras = getIntent().getExtras();
-        if (requestCode == 10001 && resultCode == 10001 && extras != null) {
+        if (requestCode == 10001 && resultCode == 20001) {
+            Bundle extras = data.getExtras();
             category = extras.getString("category");
             loadBasedOnCategory();
         }

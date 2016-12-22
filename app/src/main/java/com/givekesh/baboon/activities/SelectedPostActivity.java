@@ -235,7 +235,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                     String category = url.replaceAll("(http://)?(www\\.)?baboon.ir/tutorials/", "").replaceAll("/", "");
                     Intent intent = new Intent(SelectedPostActivity.this, MainActivity.class);
                     intent.putExtra("category", category);
-                    setResult(10001, intent);
+                    setResult(20001, intent);
                     dialog.dismiss();
                     finish();
                 } else {
