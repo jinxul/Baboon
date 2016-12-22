@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             mLeftDrawerLayout.closeDrawer();
         else if (mWaveSwipeRefreshLayout.isRefreshing())
             mWaveSwipeRefreshLayout.setRefreshing(false);
-        else if (search != null || category != null) {
+        else if (search != null || (category != null && !category.equalsIgnoreCase("") )) {
             search = null;
             category = null;
             getFeed();
