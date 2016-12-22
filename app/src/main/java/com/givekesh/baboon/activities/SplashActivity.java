@@ -18,9 +18,10 @@ import com.givekesh.baboon.Utils.Utils;
 import java.util.ArrayList;
 
 
-public class SplashActivity extends AppCompatActivity implements Interfaces.VolleyCallback {
+public class SplashActivity extends AppCompatActivity implements Interfaces.VolleyCallback, Interfaces.SinglePostCallback {
 
     private View loading;
+    private String path = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,10 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
         setContentView(R.layout.activity_splash);
 
         loading = findViewById(R.id.loading_layout);
+        final Intent intent = getIntent();
+
+        if (Intent.ACTION_VIEW.equals(intent.getAction()))
+            path = intent.getData().getPath();
 
         getData();
     }
@@ -41,6 +46,15 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
     public void onSuccess(ArrayList<Feeds> result) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("main_feed", result);
+        intent.putExtra("category", path.replace("/tutorials/", ""));
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onSuccess(Feeds post) {
+        Intent intent = new Intent(this, SelectedPostActivity.class);
+        intent.putExtra("post_parcelable", post);
         startActivity(intent);
         finish();
     }
@@ -72,7 +86,12 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
         loading.setVisibility(View.VISIBLE);
         if (new Utils(this).isNetworkAvailable()) {
             FeedProvider mFeedProvider = new FeedProvider(this);
-            mFeedProvider.getFeedsArrayList(1, null, null, this);
+            if (path.equalsIgnoreCase("") || path.matches("/tutorials/.*")) {
+                String category = path.replace("/tutorials/", "");
+                mFeedProvider.getFeedsArrayList(1, category, null, this);
+            } else {
+                mFeedProvider.getSinglePost("http://baboon.ir" + path, this);
+            }
         } else
             showSnack(getString(R.string.no_network));
     }

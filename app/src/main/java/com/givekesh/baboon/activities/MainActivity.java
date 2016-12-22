@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         init();
 
         mFeedsArrayList = getIntent().getParcelableArrayListExtra("main_feed");
+        category = getIntent().getStringExtra("category");
         if (mFeedsArrayList != null)
             refreshRecycler(mFeedsArrayList.size());
         else
