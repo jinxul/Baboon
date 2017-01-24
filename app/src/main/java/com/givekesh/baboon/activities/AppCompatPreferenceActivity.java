@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.givekesh.baboon.R;
 
@@ -19,7 +24,7 @@ import com.givekesh.baboon.R;
  * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls
  * to be used with AppCompat.
  */
-public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
+public abstract class AppCompatPreferenceActivity extends PreferenceActivity implements View.OnClickListener {
 
     private AppCompatDelegate mDelegate;
 
@@ -38,6 +43,16 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
+
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
+        RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.toolbar, root, false);
+
+        TextView title = (TextView) relativeLayout.findViewById(R.id.toolbar_title);
+        relativeLayout.findViewById(R.id.toolbar_back).setOnClickListener(this);
+        title.setText(getTitle());
+
+        root.addView(relativeLayout, 0);
+        setSupportActionBar(new Toolbar(this));
     }
 
     public ActionBar getSupportActionBar() {
@@ -48,6 +63,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().setSupportActionBar(toolbar);
     }
 
+    @NonNull
     @Override
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();
@@ -112,5 +128,11 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
             mDelegate = AppCompatDelegate.create(this, null);
         }
         return mDelegate;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.toolbar_back)
+            finish();
     }
 }
