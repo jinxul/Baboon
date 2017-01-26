@@ -3,8 +3,10 @@ package com.givekesh.baboon.activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +28,7 @@ import com.givekesh.baboon.Utils.Posts.FeedsAdapter;
 import com.givekesh.baboon.Utils.Interfaces;
 import com.givekesh.baboon.Utils.MainMenu;
 import com.givekesh.baboon.Utils.Utils;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mxn.soul.flowingdrawer_core.FlowingView;
 import com.mxn.soul.flowingdrawer_core.LeftDrawerLayout;
 
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             refreshRecycler(mFeedsArrayList.size());
         else
             mFeedProvider.getFeedsArrayList(0, category, search, this);
+
     }
 
     @Override
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             mLeftDrawerLayout.closeDrawer();
         else if (mWaveSwipeRefreshLayout.isRefreshing())
             mWaveSwipeRefreshLayout.setRefreshing(false);
-        else if (search != null || (category != null && !category.equalsIgnoreCase("") )) {
+        else if (search != null || (category != null && !category.equalsIgnoreCase(""))) {
             search = null;
             category = null;
             getFeed();
@@ -248,11 +252,18 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void init() {
         utils = new Utils(this);
         postsPerPage = utils.getPostsPerPage();
+        checkToken();
         setupToolbar();
         setupMenu();
         setupContent();
     }
 
+    private void checkToken() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = FirebaseInstanceId.getInstance().getToken();
+        if (!pref.getBoolean("token_refreshed", false))
+            utils.sendRegistrationToServer(token);
+    }
 
     private void setupContent() {
         mAdapter = new FeedsAdapter(mFeedsArrayList, this);

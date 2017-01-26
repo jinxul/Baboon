@@ -13,6 +13,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 
@@ -21,9 +26,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class Utils {
@@ -178,5 +185,33 @@ public class Utils {
 
     public boolean shouldNotify(String key){
         return pref.getBoolean(key, true);
+    }
+
+    public void sendRegistrationToServer(final String token) {
+        String url = "http://baboon.ir/app/tokenHandler.php";
+        final SharedPreferences manager = PreferenceManager.getDefaultSharedPreferences(mContext);
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        manager.edit().putBoolean("token_refreshed", true).apply();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        manager.edit().putBoolean("token_refreshed", false).apply();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("token", token);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        requestQueue.add(stringRequest);
     }
 }
