@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onBackPressed() {
-        if (mLeftDrawerLayout.isShown())
+        if (mLeftDrawerLayout.isMenuVisible())
             mLeftDrawerLayout.closeMenu(true);
         else if (mWaveSwipeRefreshLayout.isRefreshing())
             mWaveSwipeRefreshLayout.setRefreshing(false);
