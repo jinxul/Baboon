@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mxn.soul.flowingdrawer_core.LeftDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.mxn.soul.flowingdrawer_core.FlowingDrawer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
-
+    android:clipToPadding="false"
+    app:edMenuBackground="@android:color/white"
+    app:edPosition="1">
 
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <RelativeLayout
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:gravity="start">
-
-        <com.mxn.soul.flowingdrawer_core.FlowingView
-            android:id="@+id/sv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
+        android:id="@+id/menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/id_container_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="25dp"/>
-    </RelativeLayout>
+            android:layout_alignParentStart="true" />
 
-</com.mxn.soul.flowingdrawer_core.LeftDrawerLayout>
+    </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
+
+</com.mxn.soul.flowingdrawer_core.FlowingDrawer>

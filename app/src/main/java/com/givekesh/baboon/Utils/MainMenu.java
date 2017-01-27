@@ -2,16 +2,17 @@ package com.givekesh.baboon.Utils;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.givekesh.baboon.R;
-import com.mxn.soul.flowingdrawer_core.MenuFragment;
 
-public class MainMenu extends MenuFragment {
+public class MainMenu extends Fragment {
 
     private Interfaces.OnNavClickListener onNavClickListener;
 
@@ -28,11 +29,11 @@ public class MainMenu extends MenuFragment {
         NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 onNavClickListener.onSelect(item);
                 return true;
             }
         });
-        return setupReveal(view);
+        return view;
     }
 }

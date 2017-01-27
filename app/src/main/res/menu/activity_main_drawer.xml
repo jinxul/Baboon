@@ -54,25 +54,29 @@
 
     <item android:title="@string/Communicate">
         <menu>
-            <item
-                android:id="@+id/instagram"
-                android:title="@string/instagram"/>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/instagram"
+                    android:title="@string/instagram" />
 
-            <item
-                android:id="@+id/telegram"
-                android:title="@string/telegram" />
+                <item
+                    android:id="@+id/telegram"
+                    android:title="@string/telegram" />
 
-            <item
-                android:id="@+id/contact"
-                android:title="@string/contact" />
+                <item
+                    android:id="@+id/contact"
+                    android:title="@string/contact" />
+            </group>
         </menu>
     </item>
 
     <item android:title="@string/setting">
         <menu>
-            <item android:id="@+id/settings"
-                android:title="@string/setting"/>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/settings"
+                    android:title="@string/setting" />
+            </group>
         </menu>
     </item>
-
 </menu>

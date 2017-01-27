@@ -29,8 +29,8 @@ import com.givekesh.baboon.Utils.Interfaces;
 import com.givekesh.baboon.Utils.MainMenu;
 import com.givekesh.baboon.Utils.Utils;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.mxn.soul.flowingdrawer_core.FlowingView;
-import com.mxn.soul.flowingdrawer_core.LeftDrawerLayout;
+import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
+import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements Interfaces.VolleyCallback, Interfaces.OnNavClickListener {
 
-    private LeftDrawerLayout mLeftDrawerLayout;
+    private FlowingDrawer mLeftDrawerLayout;
     private Utils utils;
     private ArrayList<Feeds> mFeedsArrayList = new ArrayList<>();
     private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onBackPressed() {
-        if (mLeftDrawerLayout.isShownMenu())
-            mLeftDrawerLayout.closeDrawer();
+        if (mLeftDrawerLayout.isShown())
+            mLeftDrawerLayout.closeMenu(true);
         else if (mWaveSwipeRefreshLayout.isRefreshing())
             mWaveSwipeRefreshLayout.setRefreshing(false);
         else if (search != null || (category != null && !category.equalsIgnoreCase(""))) {
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onSelect(MenuItem item) {
-        mLeftDrawerLayout.closeDrawer();
+        mLeftDrawerLayout.closeMenu(true);
 
         switch (item.getItemId()) {
             case R.id.instagram:
@@ -310,15 +310,15 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private void setupMenu() {
-        mLeftDrawerLayout = (LeftDrawerLayout) findViewById(R.id.drawer_layout);
+        mLeftDrawerLayout = (FlowingDrawer) findViewById(R.id.drawer_layout);
+        mLeftDrawerLayout.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+
         FragmentManager fm = getSupportFragmentManager();
         MainMenu mainMenu = (MainMenu) fm.findFragmentById(R.id.id_container_menu);
-        FlowingView flowingView = (FlowingView) findViewById(R.id.sv);
-        if (mainMenu == null)
-            fm.beginTransaction().add(R.id.id_container_menu, mainMenu = new MainMenu()).commit();
 
-        mLeftDrawerLayout.setFluidView(flowingView);
-        mLeftDrawerLayout.setMenuFragment(mainMenu);
+        fm.beginTransaction().add(R.id.id_container_menu,
+                mainMenu != null ? mainMenu : new MainMenu())
+                .commit();
     }
 
     private void setupToolbar() {
@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mLeftDrawerLayout.toggle();
+                mLeftDrawerLayout.openMenu(true);
             }
         });
         toolbar.setOnClickListener(new View.OnClickListener() {
