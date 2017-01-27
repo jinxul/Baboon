@@ -172,6 +172,14 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             if (isSwipeRefresh) {
                 mAdapter.clear();
                 mWaveSwipeRefreshLayout.setRefreshing(false);
+            } else {
+                int errorString = utils.isNetworkAvailable() ? R.string.connection_failed : R.string.no_network;
+                utils.showSnack(recyclerView, getString(errorString), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mFeedProvider.getFeedsArrayList(getPage(mFeedsArrayList.size()), category, search, MainActivity.this);
+                    }
+                });
             }
             recyclerView.setError(error);
         }

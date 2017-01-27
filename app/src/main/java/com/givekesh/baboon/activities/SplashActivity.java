@@ -1,13 +1,9 @@
 package com.givekesh.baboon.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.FeedProvider;
@@ -68,18 +64,12 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
     private void showSnack(String string) {
         loading.setVisibility(View.GONE);
         final View view = findViewById(R.id.splash_coordinator);
-        Snackbar snackbar = Snackbar.make(view, string, Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.try_again), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        getData();
-                    }
-                });
-        View snackBarView = snackbar.getView();
-        ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.RED);
-        ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text)).setGravity(GravityCompat.END);
-        ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_action)).setTextColor(Color.WHITE);
-        snackbar.show();
+        new Utils(this).showSnack(view, string, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData();
+            }
+        });
     }
 
     private void getData() {

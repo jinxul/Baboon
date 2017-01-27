@@ -8,10 +8,15 @@ import android.content.SharedPreferences;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -213,5 +218,16 @@ public class Utils {
 
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         requestQueue.add(stringRequest);
+    }
+
+    public void showSnack(View view, String string, View.OnClickListener listener) {
+        Snackbar snackbar = Snackbar.make(view, string, Snackbar.LENGTH_INDEFINITE)
+                .setAction(mContext.getString(R.string.try_again), listener);
+
+        View snackBarView = snackbar.getView();
+        ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.RED);
+        ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text)).setGravity(GravityCompat.END);
+        ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_action)).setTextColor(Color.WHITE);
+        snackbar.show();
     }
 }
