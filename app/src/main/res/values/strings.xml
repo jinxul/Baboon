@@ -19,7 +19,7 @@
     <string name="first_load">درحال دریافت اطلاعات</string>
     <string name="baboon">baboon</string>
     <string name="dev_gmail">ahmadgivekesh@gmail.com</string>
-    <string name="no_network">عدم دسترسی به شبکه</string>
+    <string name="no_network">عدم دسترسی به شبکه (آفلاین)</string>
     <string name="home">صفحه اصلی</string>
     <string name="refresh">به روزرسانی</string>
     <string name="contact">تماس با ما</string>
@@ -57,4 +57,5 @@
     <string name="cancel">لغو</string>
     <string name="off">غیرفعال</string>
     <string name="on">فعال</string>
+    <string name="offline_mode">نمایش مطالب به صورت آفلاین</string>
 </resources>

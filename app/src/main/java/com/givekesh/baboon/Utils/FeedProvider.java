@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.givekesh.baboon.R;
@@ -18,6 +19,10 @@ import com.spothero.volley.JacksonNetwork;
 import com.spothero.volley.JacksonRequest;
 import com.spothero.volley.JacksonRequestListener;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,17 +39,20 @@ public class FeedProvider {
         mRequestQueue = JacksonNetwork.newRequestQueue(mContext);
     }
 
-    public void getFeedsArrayList(final int page, String category, String search, final Interfaces.VolleyCallback callBack) {
-
+    public void getFeedsArrayList(final int page, final String category, String search, final Interfaces.VolleyCallback callBack) {
         if (!utils.isNetworkAvailable()) {
-            callBack.onFailure(mContext.getString(R.string.no_network));
-            return;
+            if (category == null || category.equalsIgnoreCase("")) {
+                List<Posts> local = readFromLocal(page);
+                if (local != null && local.size() > 0)
+                    callBack.onSuccess(parseJson(local));
+            } else {
+                callBack.onFailure(mContext.getString(R.string.no_network));
+                return;
+            }
         }
 
         if (page == 1)
             callBack.onPreRequest();
-
-        final ArrayList<Feeds> feedsArrayList = new ArrayList<>();
 
         String category_name = category != null ? "category_name=" + category + "&" : "";
         String Search = search != null ? "search=" + search + "&" : "";
@@ -59,19 +67,9 @@ public class FeedProvider {
                 }
 
                 if (response.size() > 0) {
-                    for (Posts post : response) {
-                        final Feeds feeds = new Feeds();
-                        feeds.setId(post.id);
-                        feeds.setTitle(post.title.rendered);
-                        feeds.setAuthor(post.author_info.display_name);
-                        feeds.setPost(post.content.rendered);
-                        feeds.setDate(utils.getPersianDate(post.date));
-                        feeds.setContentImage(post.image.source_url);
-                        feeds.setExcerpt(post.excerpt.rendered);
-                        feeds.setAuthor_avatar(post.author_info.author_avatar);
-                        feedsArrayList.add(feeds);
-                    }
-                    callBack.onSuccess(feedsArrayList);
+                    if (category == null || category.equalsIgnoreCase(""))
+                        writeToLocal(response, page);
+                    callBack.onSuccess(parseJson(response));
                 } else
                     callBack.onFailure("not_found");
             }
@@ -158,5 +156,63 @@ public class FeedProvider {
                 return CollectionType.construct(ArrayList.class, SimpleType.construct(Comments.class));
             }
         }));
+    }
+
+    private void writeToLocal(List<Posts> response, int page) {
+        try {
+            File file = new File(mContext.getFilesDir().getPath(), "json_page_" + page + ".json");
+            FileWriter fileWriter = new FileWriter(file, false);
+            ObjectMapper mapper = new ObjectMapper();
+            fileWriter.write(mapper.writeValueAsString(response));
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception ignored) {
+        }
+    }
+
+    private List<Posts> readFromLocal(int page) {
+        try {
+            String json = getJsonString(page);
+            ObjectMapper mapper = new ObjectMapper();
+            JavaType javaType = CollectionType.construct(ArrayList.class, SimpleType.construct(Posts.class));
+            return mapper.readValue(json, javaType);
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
+
+    private String getJsonString(int page) {
+        try {
+            File file = new File(mContext.getFilesDir().getPath(), "json_page_" + page + ".json");
+            StringBuilder jsonString = new StringBuilder();
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                jsonString.append(line);
+                jsonString.append('\n');
+            }
+            bufferedReader.close();
+            return jsonString.substring(jsonString.indexOf("["));
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
+
+    private ArrayList<Feeds> parseJson(List<Posts> response) {
+        final ArrayList<Feeds> feedsArrayList = new ArrayList<>();
+        for (Posts post : response) {
+            final Feeds feeds = new Feeds();
+            feeds.setId(post.id);
+            feeds.setTitle(post.title.rendered);
+            feeds.setAuthor(post.author_info.display_name);
+            feeds.setPost(post.content.rendered);
+            feeds.setDate(utils.getPersianDate(post.date));
+            feeds.setContentImage(post.image.source_url);
+            feeds.setExcerpt(post.excerpt.rendered);
+            feeds.setAuthor_avatar(post.author_info.author_avatar);
+            feedsArrayList.add(feeds);
+        }
+        return feedsArrayList;
     }
 }

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.givekesh.baboon.CustomViews.recyclerView;
 import com.givekesh.baboon.R;
@@ -70,7 +71,13 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             refreshRecycler(mFeedsArrayList.size());
         else
             mFeedProvider.getFeedsArrayList(0, category, search, this);
+    }
 
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        if (!utils.isNetworkAvailable())
+            Toast.makeText(MainActivity.this, R.string.offline_mode, Toast.LENGTH_LONG).show();
     }
 
     @Override

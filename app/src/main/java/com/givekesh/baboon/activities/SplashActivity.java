@@ -74,15 +74,12 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
 
     private void getData() {
         loading.setVisibility(View.VISIBLE);
-        if (new Utils(this).isNetworkAvailable()) {
-            FeedProvider mFeedProvider = new FeedProvider(this);
-            if (path.equalsIgnoreCase("") || path.matches("/tutorials/.*")) {
-                String category = path.replace("/tutorials/", "");
-                mFeedProvider.getFeedsArrayList(1, category, null, this);
-            } else {
-                mFeedProvider.getSinglePost("http://baboon.ir" + path, this);
-            }
-        } else
-            showSnack(getString(R.string.no_network));
+        FeedProvider mFeedProvider = new FeedProvider(this);
+        if (path.equalsIgnoreCase("") || path.matches("/tutorials/.*")) {
+            String category = path.replace("/tutorials/", "");
+            mFeedProvider.getFeedsArrayList(1, category, null, this);
+        } else {
+            mFeedProvider.getSinglePost("http://baboon.ir" + path, this);
+        }
     }
 }
