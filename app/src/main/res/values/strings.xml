@@ -39,7 +39,7 @@
     <string name="instagram">اینستاگرم</string>
 
     <string name="new_version_title">نسخه جدید</string>
-    <string name="new_version_content">نسخه %1$s در کافه بازار منتشر شد.</string>
+    <string name="new_version_content">نسخه %1$s در %2$s منتشر شد.</string>
     <string name="comment_show">دریافت و نمایش دیدگاه ها</string>
     <string name="no_comment">دیدگاهی یافت نشد.</string>
 
@@ -58,4 +58,8 @@
     <string name="off">غیرفعال</string>
     <string name="on">فعال</string>
     <string name="offline_mode">نمایش مطالب به صورت آفلاین</string>
+
+    <string name="market_myket">مایکت</string>
+    <string name="market_jhoobin">ژوبین</string>
+    <string name="market_bazaar">کافه بازار</string>
 </resources>

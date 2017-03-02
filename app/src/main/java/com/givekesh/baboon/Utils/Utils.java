@@ -136,20 +136,63 @@ public class Utils {
         }
     }
 
-    public Intent getBazaarIntent() {
+    public Intent getMarketIntent(int market) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (isBazaarInstalled()) {
-            intent.setData(Uri.parse("bazaar://details?id=com.givekesh.baboon"));
-            intent.setPackage("com.farsitel.bazaar");
+        if (isMarketInstalled(getMarketPackageName(market))) {
+            intent.setData(Uri.parse(getMarketUri(market)));
         } else
-            intent.setData(Uri.parse("https://cafebazaar.ir/app/com.givekesh.baboon/?l=fa"));
+            intent.setData(Uri.parse(getMarketUrl(market)));
         return intent;
     }
 
-    private boolean isBazaarInstalled() {
+    private String getMarketUri(int market) {
+        switch (market) {
+            case 0:
+                return "myket://details?id=com.givekesh.baboon";
+            case 1:
+                return "jhoobin://search?q=com.givekesh.baboon";
+            default:
+                return "bazaar://details?id=com.givekesh.baboon";
+        }
+    }
+
+    private String getMarketPackageName(int market) {
+        switch (market) {
+            case 0:
+                return "ir.mservices.market";
+            case 1:
+                return "net.jhoobin.jhub";
+            default:
+                return "com.farsitel.bazaar";
+        }
+    }
+
+    private String getMarketUrl(int market) {
+        switch (market) {
+            case 0:
+                return "https://myket.ir/app/com.givekesh.baboon/?l=fa";
+            case 1:
+                return "http://www.parshub.com/push/APP/930501662";
+            default:
+                return "https://cafebazaar.ir/app/com.givekesh.baboon/?l=fa";
+        }
+    }
+
+    public String getMarketName(int market) {
+        switch (market) {
+            case 0:
+                return mContext.getString(R.string.market_myket);
+            case 1:
+                return mContext.getString(R.string.market_jhoobin);
+            default:
+                return mContext.getString(R.string.market_bazaar);
+        }
+    }
+
+    private boolean isMarketInstalled(String packageName) {
         PackageManager packageManager = mContext.getPackageManager();
         try {
-            packageManager.getPackageInfo("com.farsitel.bazaar", PackageManager.GET_ACTIVITIES);
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -188,7 +231,7 @@ public class Utils {
         }
     }
 
-    public boolean shouldNotify(String key){
+    public boolean shouldNotify(String key) {
         return pref.getBoolean(key, true);
     }
 
