@@ -30,12 +30,14 @@ import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 public class Utils {
@@ -272,5 +274,25 @@ public class Utils {
         ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text)).setGravity(GravityCompat.END);
         ((TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_action)).setTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    public boolean isUpdate(String version) {
+        try {
+            String versionName = mContext.getPackageManager()
+                    .getPackageInfo(mContext.getPackageName(), 0)
+                    .versionName;
+
+            List<String> currentVersion = new ArrayList<>(Arrays.asList(Pattern.compile("\\.").split(versionName)));
+            List<String> newVersion = new ArrayList<>(Arrays.asList(Pattern.compile("\\.").split(version)));
+
+            currentVersion.add("0");
+            newVersion.add("0");
+
+            for (int i = 0; i < Math.min(currentVersion.size(), newVersion.size()); i++)
+                if (Integer.parseInt(newVersion.get(i)) > Integer.parseInt(currentVersion.get(i)))
+                    return true;
+        } catch (Exception ignored) {
+        }
+        return false;
     }
 }

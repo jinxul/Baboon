@@ -23,13 +23,15 @@ public class MessagingService extends FirebaseMessagingService {
         Utils utils = new Utils(this);
         if (remoteMessage.getData().containsKey("new_version")) {
             int market = 0;
+            String version = remoteMessage.getData().get("new_version");
             if (remoteMessage.getData().containsKey("market_id"))
                 market = Integer.parseInt(remoteMessage.getData().get("market_id"));
 
-            if (utils.shouldNotify("notifications_new_version"))
+            if (utils.shouldNotify("notifications_new_version") &&
+                    utils.isUpdate(version))
                 sendNotification(utils.getMarketIntent(market),
                         String.format(getString(R.string.new_version_content),
-                                remoteMessage.getData().get("new_version"),
+                                version,
                                 utils.getMarketName(market)),
                         getString(R.string.new_version_title));
         } else {
