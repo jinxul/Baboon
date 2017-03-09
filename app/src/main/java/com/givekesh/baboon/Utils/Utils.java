@@ -282,8 +282,9 @@ public class Utils {
                     .getPackageInfo(mContext.getPackageName(), 0)
                     .versionName;
 
-            List<String> currentVersion = new ArrayList<>(Arrays.asList(Pattern.compile("\\.").split(versionName)));
-            List<String> newVersion = new ArrayList<>(Arrays.asList(Pattern.compile("\\.").split(version)));
+            Pattern pattern = Pattern.compile("\\.");
+            List<String> currentVersion = new ArrayList<>(Arrays.asList(pattern.split(versionName)));
+            List<String> newVersion = new ArrayList<>(Arrays.asList(pattern.split(version)));
 
             currentVersion.add("0");
             newVersion.add("0");
