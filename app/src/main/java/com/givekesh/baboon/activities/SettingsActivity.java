@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import com.givekesh.baboon.R;
+import com.givekesh.baboon.Utils.Utils;
 
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return true;
         }
     };
+
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -159,6 +161,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("pref_posts_per_page"));
             bindPreferenceSummaryToValue(findPreference("pref_ui"));
             bindPreferenceSummaryToValue(findPreference("pref_font"));
+
+            Preference theme = findPreference("pref_theme");
+            bindPreferenceSummaryToValue(theme);
+            theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object o) {
+                    Utils utils = new Utils(getActivity());
+                    getActivity().setTheme(utils.getSelectedTheme());
+                    getActivity().recreate();
+                    return true;
+                }
+            });
         }
 
         @Override
@@ -170,6 +184,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+
     }
 
     /**

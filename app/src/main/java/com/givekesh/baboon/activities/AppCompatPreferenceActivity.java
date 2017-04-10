@@ -1,12 +1,14 @@
 package com.givekesh.baboon.activities;
 
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.givekesh.baboon.R;
+import com.givekesh.baboon.Utils.Utils;
 
 /**
  * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls
@@ -134,5 +137,17 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity imp
     public void onClick(View view) {
         if (view.getId() == R.id.toolbar_back)
             finish();
+    }
+
+    @Override
+    protected void onApplyThemeResource(Resources.Theme theme, @StyleRes int resid, boolean first) {
+        Utils utils = new Utils(this);
+        theme.applyStyle(utils.getSelectedTheme(), true);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 }

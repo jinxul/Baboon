@@ -1,5 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/pref_theme_titles"
+        android:entryValues="@array/pref_theme"
+        android:key="pref_theme"
+        android:layout="@layout/pref_list"
+        android:negativeButtonText="@string/ok"
+        android:positiveButtonText="@string/cancel"
+        android:title="@string/pref_theme" />
+
     <ListPreference
         android:defaultValue="0"
         android:entries="@array/pref_ui_titles"

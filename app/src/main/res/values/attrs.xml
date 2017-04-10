@@ -8,4 +8,16 @@
             <enum name="BNazanin" value="3"/>
         </attr>
     </declare-styleable>
+
+    <attr name="splashBackground" format="color|reference"/>
+    <attr name="backgroundColor" format="color|reference"/>
+    <attr name="dividerColor" format="color|reference"/>
+    <attr name="full_article_bg" format="color|reference"/>
+    <attr name="vector_fill_color" format="color|reference"/>
+    <attr name="vector_bg" format="color|reference"/>
+    <attr name="side_nav" format="reference"/>
+    <attr name="article_text_color" format="color|reference"/>
+    <attr name="comment_text_color" format="color|reference"/>
+    <attr name="comment_bg_color" format="color|reference"/>
+
 </resources>

@@ -10,10 +10,10 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        utils = new Utils(this);
+        setTheme(utils.getSelectedTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -265,7 +267,6 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private void init() {
-        utils = new Utils(this);
         postsPerPage = utils.getPostsPerPage();
         checkToken();
         setupToolbar();
@@ -290,7 +291,9 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 mFeedProvider.getFeedsArrayList(1, category, search, MainActivity.this);
             }
         });
-        mWaveSwipeRefreshLayout.setWaveColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        mWaveSwipeRefreshLayout.setWaveColor(typedValue.data);
         setupRecyclerView();
     }
 
@@ -339,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, null));
+        toolbar.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme()));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -395,6 +398,23 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             recyclerView.setAdapter(mAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             mAdapter.notifyDataSetChanged();
+            if (isThemeChanged())
+                applyTheme();
         }
+    }
+
+    private void applyTheme() {
+        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putParcelableArrayListExtra("main_feed", mFeedsArrayList);
+        startActivity(intent);
+    }
+
+    private boolean isThemeChanged() {
+        if (utils == null)
+            utils = new Utils(this);
+        return utils.getThemeId() != utils.getSelectedTheme();
     }
 }
