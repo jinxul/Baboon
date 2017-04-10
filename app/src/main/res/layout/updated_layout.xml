@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -30,7 +32,6 @@
             android:layout_toStartOf="@id/post_image"
             android:gravity="center_vertical|right"
             android:maxLines="2"
-            android:textColor="@android:color/black"
             android:textSize="17sp"
             android:textStyle="bold"
             app:type="Tanha" />
@@ -93,7 +94,7 @@
             android:layout_marginTop="2dp"
             android:gravity="center"
             android:text="@string/full_article"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="?article_text_color"
             android:textSize="8pt"
             android:visibility="visible"
             app:type="Tanha" />

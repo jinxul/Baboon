@@ -3,12 +3,19 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/light_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/light_colorPrimaryDark</item>
+        <item name="colorAccent">@color/light_colorAccent</item>
 
         <item name="android:activatedBackgroundIndicator">@drawable/nav_bg</item>
 
+        <item name="backgroundColor">@color/light_background</item>
+        <item name="dividerColor">@color/light_divider</item>
+        <item name="full_article_bg">@color/light_full_article_bg</item>
+        <item name="vector_fill_color">@color/light_vector_fill_color</item>
+        <item name="vector_bg">@color/light_vector_bg</item>
+        <item name="side_nav">@drawable/side_nav_bar</item>
+        <item name="article_text_color">@color/light_article_text_color</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -31,5 +38,31 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="splashBackground">@color/light_splashBackground</item>
     </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/dark_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/dark_colorPrimaryDark</item>
+        <item name="colorAccent">@color/dark_colorAccent</item>
+
+        <item name="android:activatedBackgroundIndicator">@drawable/dark_nav_bg</item>
+
+        <item name="backgroundColor">@color/dark_background</item>
+        <item name="dividerColor">@color/dark_divider</item>
+        <item name="full_article_bg">@color/dark_full_article_bg</item>
+        <item name="vector_fill_color">@color/dark_vector_fill_color</item>
+        <item name="vector_bg">@color/dark_vector_bg</item>
+        <item name="side_nav">@drawable/dark_side_nav_bar</item>
+        <item name="article_text_color">@color/dark_article_text_color</item>
+    </style>
+
+    <style name="Theme.AppCompat.Dark.NoActionBar.FullScreen" parent="@style/Theme.AppCompat">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="splashBackground">@color/dark_splashBackground</item>
+    </style>
+
 </resources>

@@ -6,12 +6,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -116,10 +116,12 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     }
 
     private void setupToolbar() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
         mToolbarView = (Toolbar) findViewById(R.id.toolbar);
-        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, ContextCompat.getColor(this, R.color.colorPrimary)));
+        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, typedValue.data));
         mToolbarView.setTitle(Html.fromHtml(feed.getTitle()));
-        mToolbarView.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_keyboard_backspace, null));
+        mToolbarView.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_keyboard_backspace, getTheme()));
         mToolbarView.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +138,9 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-        int baseColor = ContextCompat.getColor(this, R.color.colorPrimary);
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        int baseColor = typedValue.data;
         float alpha = Math.min(1, (float) scrollY / mParallaxImageHeight);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
         ViewHelper.setTranslationY(mImageView, scrollY / 2);
