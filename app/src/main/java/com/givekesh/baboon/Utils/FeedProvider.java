@@ -56,7 +56,12 @@ public class FeedProvider {
 
         String category_name = category != null ? "category_name=" + category + "&" : "";
         String Search = search != null ? "search=" + search + "&" : "";
-        String url = "http://baboon.ir/wp-json/givekesh/posts?" + category_name + Search + "per_page=" + utils.getPostsPerPage() + "&page=" + page;
+        String url = "http://baboon.ir/wp-json/givekesh/posts?" +
+                category_name +
+                Search +
+                "per_page=" + utils.getPostsPerPage() +
+                "&page=" + page +
+                "&extra=comments_count";
 
         mRequestQueue.add(new JacksonRequest<>(Request.Method.GET, url, new JacksonRequestListener<List<Posts>>() {
             @Override
@@ -211,6 +216,7 @@ public class FeedProvider {
             feeds.setContentImage(post.image.source_url);
             feeds.setExcerpt(post.excerpt.rendered);
             feeds.setAuthor_avatar(post.author_info.author_avatar);
+            feeds.setComments_count(post.comments_count);
             feedsArrayList.add(feeds);
         }
         return feedsArrayList;

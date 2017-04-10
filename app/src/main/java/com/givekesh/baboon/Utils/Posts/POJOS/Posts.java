@@ -12,12 +12,14 @@ public final class Posts {
     public final Content content;
     public final Post_Image image;
     public final Author_info author_info;
+    public final int comments_count;
 
     @JsonCreator
     public Posts(@JsonProperty("id") int id, @JsonProperty("date") String date, @JsonProperty("title") Title title,
                  @JsonProperty("excerpt") Excerpt excerpt,
                  @JsonProperty("content") Content content, @JsonProperty("image") Post_Image image,
-                 @JsonProperty("author_info") Author_info author_info) {
+                 @JsonProperty("author_info") Author_info author_info,
+                 @JsonProperty("comments_count") int comments_count) {
         this.id = id;
         this.date = date;
         this.title = title;
@@ -25,6 +27,7 @@ public final class Posts {
         this.content = content;
         this.image = image;
         this.author_info = author_info;
+        this.comments_count = comments_count;
     }
 
     public static final class Title {
