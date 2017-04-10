@@ -27,6 +27,7 @@ import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 
 
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -295,5 +296,23 @@ public class Utils {
         } catch (Exception ignored) {
         }
         return false;
+    }
+
+    public int getSelectedTheme(){
+        if (pref.getString("pref_theme", "0").equalsIgnoreCase("0"))
+            return R.style.AppTheme;
+        return R.style.AppThemeDark;
+    }
+
+    public int getThemeId() {
+        try {
+            Class<?> wrapper = Context.class;
+            Method method = wrapper.getMethod("getThemeResId");
+            method.setAccessible(true);
+            return (Integer) method.invoke(mContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

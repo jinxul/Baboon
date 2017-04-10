@@ -2,6 +2,7 @@ package com.givekesh.baboon.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -21,6 +22,10 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int theme = R.style.Theme_AppCompat_Dark_NoActionBar_FullScreen;
+        if(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_theme", "0").equalsIgnoreCase("0"))
+            theme = R.style.Theme_AppCompat_Light_NoActionBar_FullScreen;
+        setTheme(theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
