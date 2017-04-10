@@ -35,8 +35,8 @@
     </string-array>
 
     <string-array name="pref_font_titles">
-        <item>Tanha (پیش فرض)</item>
-        <item>Roboto</item>
+        <item>Tanha</item>
+        <item>Roboto (پیش فرض)</item>
         <item>BNazanin</item>
     </string-array>
 
