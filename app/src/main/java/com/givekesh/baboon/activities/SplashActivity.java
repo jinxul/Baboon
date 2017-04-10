@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity implements Interfaces.Voll
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, true);
         int theme = R.style.Theme_AppCompat_Dark_NoActionBar_FullScreen;
         if(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_theme", "0").equalsIgnoreCase("0"))
             theme = R.style.Theme_AppCompat_Light_NoActionBar_FullScreen;
