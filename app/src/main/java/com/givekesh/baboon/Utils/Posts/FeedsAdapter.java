@@ -59,7 +59,14 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int getLayout() {
         int value = Integer.parseInt(
                 PreferenceManager.getDefaultSharedPreferences(mActivity).getString("pref_ui", "0"));
-        return value == 0 ? R.layout.updated_layout : R.layout.new_ui;
+        switch (value) {
+            case 0:
+                return R.layout.updated_layout;
+            case 1:
+                return R.layout.new_ui;
+            default:
+                return R.layout.card_ui;
+        }
     }
 
     private boolean isPositionFooter(int position) {
@@ -112,41 +119,42 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 });
             } else {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final int visibility = ((newHolder) holder).post_excerpt.getVisibility() == View.GONE ? View.VISIBLE : View.INVISIBLE;
-                        Transition transition = new AutoTransition().setDuration(500).addListener(new Transition.TransitionListener() {
-                            @Override
-                            public void onTransitionStart(@NonNull Transition transition) {
+                if (!((newHolder) holder).isCardUi)
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            final int visibility = ((newHolder) holder).post_excerpt.getVisibility() == View.GONE ? View.VISIBLE : View.INVISIBLE;
+                            Transition transition = new AutoTransition().setDuration(500).addListener(new Transition.TransitionListener() {
+                                @Override
+                                public void onTransitionStart(@NonNull Transition transition) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTransitionEnd(@NonNull Transition transition) {
-                                if (visibility == View.INVISIBLE)
-                                    ((newHolder) holder).post_excerpt.setVisibility(View.GONE);
-                            }
+                                @Override
+                                public void onTransitionEnd(@NonNull Transition transition) {
+                                    if (visibility == View.INVISIBLE)
+                                        ((newHolder) holder).post_excerpt.setVisibility(View.GONE);
+                                }
 
-                            @Override
-                            public void onTransitionCancel(@NonNull Transition transition) {
+                                @Override
+                                public void onTransitionCancel(@NonNull Transition transition) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTransitionPause(@NonNull Transition transition) {
+                                @Override
+                                public void onTransitionPause(@NonNull Transition transition) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onTransitionResume(@NonNull Transition transition) {
+                                @Override
+                                public void onTransitionResume(@NonNull Transition transition) {
 
-                            }
-                        });
-                        TransitionManager.beginDelayedTransition((ViewGroup) ((newHolder) holder).itemView, transition);
-                        ((newHolder) holder).post_excerpt.setVisibility(visibility);
-                    }
-                });
+                                }
+                            });
+                            TransitionManager.beginDelayedTransition((ViewGroup) ((newHolder) holder).itemView, transition);
+                            ((newHolder) holder).post_excerpt.setVisibility(visibility);
+                        }
+                    });
             }
             Glide.with(mActivity)
                     .load(feed.getContentImage())
@@ -154,7 +162,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .into(((newHolder) holder).post_image);
 
             ((newHolder) holder).author_name.setText(feed.getAuthor());
-            ((newHolder) holder).post_date.setText(feed.getDate());
+            if (!((newHolder) holder).isCardUi)
+                ((newHolder) holder).post_date.setText(feed.getDate());
             ((newHolder) holder).post_title.setText(Html.fromHtml(feed.getTitle()));
             ((newHolder) holder).post_excerpt.setText(Html.fromHtml(feed.getExcerpt().replace("<p>", "<p align=\"justify\">")));
             ((newHolder) holder).full_article.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +178,15 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     showPost(feed, ((newHolder) holder).post_image);
                 }
             });
+            if (((newHolder) holder).isCardUi) {
+                ((newHolder) holder).Comments_count.setText(String.valueOf(" " + feed.getComments_count()));
+                ((newHolder) holder).Comments_count.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showPost(feed, ((newHolder) holder).post_image);
+                    }
+                });
+            }
         }
     }
 
@@ -211,16 +229,23 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView post_title;
         private TextView post_excerpt;
         private TextView full_article;
+        private TextView Comments_count;
+        private boolean isCardUi;
 
         newHolder(View itemView) {
             super(itemView);
-            author_avatar = (ImageView) itemView.findViewById(R.id.author_avatar);
+            isCardUi = getLayout() == R.layout.card_ui;
             post_image = (ImageView) itemView.findViewById(R.id.post_image);
             author_name = (TextView) itemView.findViewById(R.id.author_name);
-            post_date = (TextView) itemView.findViewById(R.id.post_date);
+            if (!isCardUi) {
+                post_date = (TextView) itemView.findViewById(R.id.post_date);
+                author_avatar = (ImageView) itemView.findViewById(R.id.author_avatar);
+            }
             post_title = (TextView) itemView.findViewById(R.id.post_title);
             post_excerpt = (TextView) itemView.findViewById(R.id.post_excerpt);
             full_article = (TextView) itemView.findViewById(R.id.full_article);
+            if (isCardUi)
+                Comments_count = (TextView) itemView.findViewById(R.id.comments_count);
         }
     }
 }

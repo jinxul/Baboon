@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/post_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:transitionName="post_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_image"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <com.givekesh.baboon.CustomViews.textView
+                android:id="@+id/post_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:type="Tanha" />
+
+            <com.givekesh.baboon.CustomViews.textView
+                android:id="@+id/post_excerpt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="70dp"
+                android:gravity="center_vertical|right"
+                android:lines="4"
+                app:type="Tanha"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="?dividerColor" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.givekesh.baboon.CustomViews.textView
+                    android:id="@+id/full_article"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:drawableLeft="@drawable/ic_full_article"
+                    android:drawableStart="@drawable/ic_full_article" />
+
+                <com.givekesh.baboon.CustomViews.textView
+                    android:id="@+id/comments_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/ic_message"
+                    android:drawableStart="@drawable/ic_message"
+                    android:gravity="center"
+                    android:textColor="?full_article_bg"
+                    app:type="Tanha" />
+
+                <com.givekesh.baboon.CustomViews.textView
+                    android:id="@+id/author_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:lines="1"
+                    app:type="Tanha" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -25,11 +25,13 @@
     <string-array name="pref_ui_titles">
         <item>جدید (پیش فرض)</item>
         <item>قدیمی</item>
+        <item>کارت</item>
     </string-array>
 
     <string-array name="pref_ui">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="pref_font_titles">
