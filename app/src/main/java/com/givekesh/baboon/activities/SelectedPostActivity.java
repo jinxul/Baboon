@@ -35,6 +35,7 @@ import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import com.givekesh.baboon.Utils.FeedProvider;
 import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
 import com.givekesh.baboon.Utils.Interfaces;
+import com.givekesh.baboon.Utils.Utils;
 import com.nineoldandroids.view.ViewHelper;
 
 
@@ -52,10 +53,12 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private FrameLayout customViewContainer;
     private View mCustomView;
     private WebChromeClient.CustomViewCallback customViewCallback;
-
+    private Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        utils = new Utils(this);
+        setTheme(utils.getSelectedTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_post);
 
@@ -187,8 +190,29 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                 "<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sons-of-obsidian\" defer=\"defer\"></script>" +
                 "</head>" +
                 "<body>" +
+                applyThemeStyleSheet() +
                 feed.getPost() +
                 "</body></HTML>";
+    }
+
+    private boolean isDarkTheme() {
+        if (utils == null)
+            utils = new Utils(this);
+        return utils.getThemeId() == R.style.AppThemeDark;
+    }
+
+    private String applyThemeStyleSheet() {
+        if (isDarkTheme())
+            return "<style>" +
+                    "   body{" +
+                    "       color: #f1f1f1;" +
+                    "       background-color: #212121;" +
+                    "   }" +
+                    "   hr {" +
+                    "       border: 1px solid #333;" +
+                    "   }" +
+                    "</style>";
+        return "";
     }
 
     @Override

@@ -17,5 +17,7 @@
     <attr name="vector_bg" format="color|reference"/>
     <attr name="side_nav" format="reference"/>
     <attr name="article_text_color" format="color|reference"/>
+    <attr name="comment_text_color" format="color|reference"/>
+    <attr name="comment_bg_color" format="color|reference"/>
 
 </resources>

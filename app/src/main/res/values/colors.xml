@@ -10,6 +10,8 @@
     <color name="light_RippleColor">#42FFFFFF</color>
     <color name="light_divider">#1F000000</color>
     <color name="light_article_text_color">#388E3C</color>
+    <color name="light_comment_text_color">#FF000000</color>
+    <color name="light_comment_bg_color">#FFFFFFFF</color>
 
     <color name="light_full_article_bg">#808080</color>
     <color name="light_vector_fill_color">#FFF</color>
@@ -25,6 +27,8 @@
     <color name="dark_RippleColor">#42FFFFFF</color>
     <color name="dark_divider">#1FFFFFFF</color>
     <color name="dark_article_text_color">#FFF1F1F1</color>
+    <color name="dark_comment_text_color">#FFF1F1F1</color>
+    <color name="dark_comment_bg_color">#212121</color>
 
     <color name="dark_full_article_bg">#FFF1F1F1</color>
     <color name="dark_vector_fill_color">#FFF</color>

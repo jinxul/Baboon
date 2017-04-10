@@ -16,6 +16,8 @@
         <item name="vector_bg">@color/light_vector_bg</item>
         <item name="side_nav">@drawable/side_nav_bar</item>
         <item name="article_text_color">@color/light_article_text_color</item>
+        <item name="comment_text_color">@color/light_comment_text_color</item>
+        <item name="comment_bg_color">@color/light_comment_bg_color</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -55,6 +57,8 @@
         <item name="vector_bg">@color/dark_vector_bg</item>
         <item name="side_nav">@drawable/dark_side_nav_bar</item>
         <item name="article_text_color">@color/dark_article_text_color</item>
+        <item name="comment_text_color">@color/dark_comment_text_color</item>
+        <item name="comment_bg_color">@color/dark_comment_bg_color</item>
     </style>
 
     <style name="Theme.AppCompat.Dark.NoActionBar.FullScreen" parent="@style/Theme.AppCompat">
