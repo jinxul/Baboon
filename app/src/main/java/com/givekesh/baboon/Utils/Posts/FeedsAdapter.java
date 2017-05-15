@@ -106,18 +106,18 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         if (holder instanceof newHolder) {
             final Feeds feed = mFeeds.get(position);
-            if (((newHolder) holder).author_avatar != null) {
-                Glide.with(mActivity)
-                        .load(feed.getAuthor_avatar())
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(((newHolder) holder).author_avatar);
-
+            if (getLayout() != R.layout.updated_layout)
                 ((newHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         showPost(feed, ((newHolder) holder).post_image);
                     }
                 });
+            if (((newHolder) holder).author_avatar != null) {
+                Glide.with(mActivity)
+                        .load(feed.getAuthor_avatar())
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(((newHolder) holder).author_avatar);
             } else {
                 if (!((newHolder) holder).isCardUi)
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
