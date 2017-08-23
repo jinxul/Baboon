@@ -22,7 +22,7 @@
         android:title="@string/pref_ui" />
 
     <ListPreference
-        android:defaultValue="1"
+        android:defaultValue="2"
         android:entries="@array/pref_font_titles"
         android:entryValues="@array/pref_font"
         android:key="pref_font"
