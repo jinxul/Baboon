@@ -2,14 +2,19 @@ package com.givekesh.baboon.activities;
 
 
 import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -198,6 +203,37 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                /*
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (mNotificationManager == null)
+                    return;
+                boolean new_post = mNotificationManager.getNotificationChannel(
+                        getString(R.string.channel_id_new_post)).getImportance() != NotificationManager.IMPORTANCE_NONE;
+                boolean new_version = mNotificationManager.getNotificationChannel(
+                        getString(R.string.channel_id_new_version)).getImportance() != NotificationManager.IMPORTANCE_NONE;
+                */
+                SharedPreferences.Editor pref = getPreferenceManager().getSharedPreferences().edit();
+                pref.putBoolean("notifications_new_post", true);
+                pref.putBoolean("notifications_new_version", true);
+                pref.apply();
+
+                findPreference("notifications_new_post_26").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        showChannel(R.string.channel_id_new_post);
+                        return false;
+                    }
+                });findPreference("notifications_new_version_26").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        showChannel(R.string.channel_id_new_version);
+                        return false;
+                    }
+                });
+            }
         }
 
         @Override
@@ -208,6 +244,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
             return super.onOptionsItemSelected(item);
+        }
+
+        @TargetApi(Build.VERSION_CODES.O)
+        private void showChannel(int channelId){
+            Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_CHANNEL_ID, getString(channelId));
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, "com.givekesh.baboon");
+            startActivity(intent);
         }
     }
 }

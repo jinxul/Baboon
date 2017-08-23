@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:defaultValue="true"
+        android:key="notifications_new_post_26"
+        android:layout="@layout/pref"
+        android:title="@string/notification_new_post" />
+
+    <Preference
+        android:defaultValue="true"
+        android:key="notifications_new_version_26"
+        android:layout="@layout/pref"
+        android:title="@string/notifications_new_version" />
+
+</PreferenceScreen>
