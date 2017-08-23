@@ -1,56 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/tutorials">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/html"
+                    android:title="@string/html_css" />
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/html"
-            android:title="@string/html_css" />
+                <item
+                    android:id="@+id/js"
+                    android:title="@string/js" />
 
-        <item
-            android:id="@+id/js"
-            android:title="@string/js" />
+                <item
+                    android:id="@+id/node"
+                    android:title="@string/node_js" />
 
-        <item
-            android:id="@+id/node"
-            android:title="@string/node_js" />
+                <item
+                    android:id="@+id/more_categories"
+                    android:title="@string/more" />
 
-        <item
-            android:id="@+id/angular"
-            android:title="@string/angularjs" />
+                <item
+                    android:id="@+id/angular"
+                    android:title="@string/angularjs"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/vagrant"
-            android:title="@string/vagrant" />
+                <item
+                    android:id="@+id/vagrant"
+                    android:title="@string/vagrant"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/laravel"
-            android:title="@string/laravel" />
+                <item
+                    android:id="@+id/laravel"
+                    android:title="@string/laravel"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/jq"
-            android:title="@string/jquery" />
+                <item
+                    android:id="@+id/jq"
+                    android:title="@string/jquery"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/php"
-            android:title="@string/php" />
+                <item
+                    android:id="@+id/php"
+                    android:title="@string/php"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/bootstrap"
-            android:title="@string/bootstrap" />
+                <item
+                    android:id="@+id/bootstrap"
+                    android:title="@string/bootstrap"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/ruby_on_rails"
-            android:title="@string/ruby_on_rails" />
+                <item
+                    android:id="@+id/ruby_on_rails"
+                    android:title="@string/ruby_on_rails"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/express"
-            android:title="@string/express" />
+                <item
+                    android:id="@+id/express"
+                    android:title="@string/express"
+                    android:visible="false" />
 
-        <item
-            android:id="@+id/symfony"
-            android:title="@string/symfony" />
+                <item
+                    android:id="@+id/symfony"
+                    android:title="@string/symfony"
+                    android:visible="false" />
 
-    </group>
+                <item
+                    android:id="@+id/less_categories"
+                    android:title="@string/less"
+                    android:visible="false" />
+
+            </group>
+        </menu>
+    </item>
 
     <item android:title="@string/Communicate">
         <menu>

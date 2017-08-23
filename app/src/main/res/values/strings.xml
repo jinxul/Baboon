@@ -69,4 +69,7 @@
     <string name="channel_new_post">پست جدید</string>
     <string name="channel_new_version">نسخه جدید</string>
     <string name="baboon_fa">بابــون</string>
+    <string name="tutorials">آموزش ها</string>
+    <string name="more">بیشتر ...</string>
+    <string name="less">کمتر ...</string>
 </resources>
