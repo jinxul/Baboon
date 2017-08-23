@@ -63,4 +63,9 @@
     <string name="market_jhoobin">ژوبین</string>
     <string name="market_bazaar">کافه بازار</string>
     <string name="pref_theme">انتخاب تم</string>
+
+    <string name="channel_id_new_post">baboon_new_post_channel</string>
+    <string name="channel_id_new_version">baboon_new_version_channel</string>
+    <string name="channel_new_post">پست جدید</string>
+    <string name="channel_new_version">نسخه جدید</string>
 </resources>

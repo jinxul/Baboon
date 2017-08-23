@@ -1,12 +1,17 @@
 package com.givekesh.baboon.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +39,7 @@ import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
@@ -272,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         setupToolbar();
         setupMenu();
         setupContent();
+        setupNotificationChannels();
     }
 
     private void checkToken() {
@@ -417,4 +424,32 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             utils = new Utils(this);
         return utils.getThemeId() != utils.getSelectedTheme();
     }
+
+    private void setupNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            List<NotificationChannel> mChannels = new ArrayList<>();
+            mChannels.add(getChannel(getString(R.string.channel_id_new_post),
+                    getString(R.string.channel_new_post),
+                    getString(R.string.notification_new_post)));
+            mChannels.add(getChannel(getString(R.string.channel_id_new_version),
+                    getString(R.string.channel_new_version),
+                    getString(R.string.notifications_new_version)));
+            mNotificationManager.createNotificationChannels(mChannels);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private NotificationChannel getChannel(String id, String name, String description) {
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel(id, name, importance);
+        mChannel.setDescription(description);
+        mChannel.enableLights(true);
+        mChannel.setLightColor(Color.GREEN);
+        mChannel.enableVibration(true);
+        mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+        return mChannel;
+    }
+
 }

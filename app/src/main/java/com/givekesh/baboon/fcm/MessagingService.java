@@ -33,16 +33,17 @@ public class MessagingService extends FirebaseMessagingService {
                         String.format(getString(R.string.new_version_content),
                                 version,
                                 utils.getMarketName(market)),
-                        getString(R.string.new_version_title));
+                        getString(R.string.new_version_title), getString(R.string.channel_id_new_version));
         } else {
             if (utils.shouldNotify("notifications_new_post"))
                 sendNotification(new Intent(this, MainActivity.class),
                         remoteMessage.getNotification().getBody(),
-                        remoteMessage.getNotification().getTitle());
+                        remoteMessage.getNotification().getTitle(),
+                        getString(R.string.channel_id_new_post));
         }
     }
 
-    private void sendNotification(Intent intent, String messageBody, String title) {
+    private void sendNotification(Intent intent, String messageBody, String title, String channelId) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -54,6 +55,7 @@ public class MessagingService extends FirebaseMessagingService {
                 .setContentText(Html.fromHtml(messageBody))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
+                .setChannelId(channelId)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
