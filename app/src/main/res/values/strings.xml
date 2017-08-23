@@ -68,4 +68,5 @@
     <string name="channel_id_new_version">baboon_new_version_channel</string>
     <string name="channel_new_post">پست جدید</string>
     <string name="channel_new_version">نسخه جدید</string>
+    <string name="baboon_fa">بابــون</string>
 </resources>
