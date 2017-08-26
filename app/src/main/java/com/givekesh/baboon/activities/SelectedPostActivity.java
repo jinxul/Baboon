@@ -63,16 +63,16 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         setContentView(R.layout.activity_selected_post);
 
         feed = getIntent().getParcelableExtra("post_parcelable");
-        mImageView = (ImageView) findViewById(R.id.post_image);
+        mImageView = findViewById(R.id.post_image);
         setupToolbar();
 
-        mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
+        mScrollView = findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
 
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
 
-        content = (ObservableWebView) findViewById(R.id.post_content);
-        customViewContainer = (FrameLayout) findViewById(R.id.video_fullscreen);
+        content = findViewById(R.id.post_content);
+        customViewContainer = findViewById(R.id.video_fullscreen);
 
         setUpWebViewDefaults();
         setUseTextAutoSize();
@@ -85,8 +85,8 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
                 .crossFade()
                 .into(mImageView);
 
-        loadComments = (ActionProcessButton) findViewById(R.id.show_comments);
-        final RecyclerView comments = (RecyclerView) findViewById(R.id.comment_list);
+        loadComments = findViewById(R.id.show_comments);
+        final RecyclerView comments = findViewById(R.id.comment_list);
         comments.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -121,7 +121,7 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
     private void setupToolbar() {
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        mToolbarView = (Toolbar) findViewById(R.id.toolbar);
+        mToolbarView = findViewById(R.id.toolbar);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, typedValue.data));
         mToolbarView.setTitle(Html.fromHtml(feed.getTitle()));
         mToolbarView.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_keyboard_backspace, getTheme()));

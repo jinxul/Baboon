@@ -49,7 +49,7 @@ public class recyclerView extends RecyclerView {
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
         mParentView = (ViewGroup) getParent();
-        mEmptyText = (TextView) mEmptyView.findViewById(R.id.loading_text);
+        mEmptyText = mEmptyView.findViewById(R.id.loading_text);
         mEmptyProgress = mEmptyView.findViewById(R.id.loading_progress);
     }
 

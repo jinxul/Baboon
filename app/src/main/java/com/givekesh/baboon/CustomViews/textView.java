@@ -6,11 +6,10 @@ import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
 
 import com.givekesh.baboon.R;
 
-public class textView extends TextView {
+public class textView extends android.support.v7.widget.AppCompatTextView {
     private int mType = 0;
 
     public textView(Context context) {

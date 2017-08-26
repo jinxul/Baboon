@@ -50,7 +50,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity imp
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
         RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.toolbar, root, false);
 
-        TextView title = (TextView) relativeLayout.findViewById(R.id.toolbar_title);
+        TextView title = relativeLayout.findViewById(R.id.toolbar_title);
         relativeLayout.findViewById(R.id.toolbar_back).setOnClickListener(this);
         title.setText(getTitle());
 

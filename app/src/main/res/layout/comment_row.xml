@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?comment_bg_color"
     android:orientation="vertical">
 
     <ImageView
@@ -47,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/avatar"
         android:autoLink="all"
-        android:gravity="right"
+        android:gravity="start"
         android:paddingEnd="16dp"
         android:paddingLeft="0dp"
         android:paddingRight="16dp"

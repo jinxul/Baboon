@@ -75,10 +75,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.holder
 
         public holder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            content = (TextView) itemView.findViewById(R.id.content);
-            avatar = (ImageView) itemView.findViewById(R.id.avatar);
-            date = (TextView) itemView.findViewById(R.id.date);
+            name = itemView.findViewById(R.id.name);
+            content = itemView.findViewById(R.id.content);
+            avatar = itemView.findViewById(R.id.avatar);
+            date = itemView.findViewById(R.id.date);
 
         }
     }

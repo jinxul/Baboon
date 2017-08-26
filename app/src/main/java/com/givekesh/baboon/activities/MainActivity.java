@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.action_search).getActionView();
+        assert searchManager != null;
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
 
     private void setupContent() {
         mAdapter = new FeedsAdapter(mFeedsArrayList, this);
-        mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
+        mWaveSwipeRefreshLayout = findViewById(R.id.main_swipe);
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -307,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         final View empty = findViewById(R.id.emptyView);
-        recyclerView = (recyclerView) findViewById(R.id.RecyclerView);
+        recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setEmptyView(empty);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -335,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private void setupMenu() {
-        mLeftDrawerLayout = (FlowingDrawer) findViewById(R.id.drawer_layout);
+        mLeftDrawerLayout = findViewById(R.id.drawer_layout);
         mLeftDrawerLayout.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -347,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme()));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -396,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10001 && resultCode == 20001) {
             Bundle extras = data.getExtras();
+            assert extras != null;
             category = extras.getString("category");
             loadBasedOnCategory();
         }
@@ -436,6 +438,7 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
             mChannels.add(getChannel(getString(R.string.channel_id_new_version),
                     getString(R.string.channel_new_version),
                     getString(R.string.notifications_new_version)));
+            assert mNotificationManager != null;
             mNotificationManager.createNotificationChannels(mChannels);
         }
     }

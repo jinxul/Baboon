@@ -22,7 +22,7 @@
             <com.givekesh.baboon.CustomViews.textView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|start"
                 android:text="@string/baboon_fa"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white"

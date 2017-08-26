@@ -30,7 +30,7 @@
                 android:id="@+id/post_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|start"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:type="Tanha" />
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="70dp"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|start"
                 android:lines="4"
                 app:type="Tanha"/>
 
@@ -83,7 +83,7 @@
                     android:id="@+id/author_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="start"
                     android:layout_gravity="center_vertical"
                     android:lines="1"
                     app:type="Tanha" />

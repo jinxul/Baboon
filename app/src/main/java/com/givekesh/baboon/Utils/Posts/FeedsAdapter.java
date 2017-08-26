@@ -235,17 +235,17 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         newHolder(View itemView) {
             super(itemView);
             isCardUi = getLayout() == R.layout.card_ui;
-            post_image = (ImageView) itemView.findViewById(R.id.post_image);
-            author_name = (TextView) itemView.findViewById(R.id.author_name);
+            post_image = itemView.findViewById(R.id.post_image);
+            author_name = itemView.findViewById(R.id.author_name);
             if (!isCardUi) {
-                post_date = (TextView) itemView.findViewById(R.id.post_date);
-                author_avatar = (ImageView) itemView.findViewById(R.id.author_avatar);
+                post_date = itemView.findViewById(R.id.post_date);
+                author_avatar = itemView.findViewById(R.id.author_avatar);
             }
-            post_title = (TextView) itemView.findViewById(R.id.post_title);
-            post_excerpt = (TextView) itemView.findViewById(R.id.post_excerpt);
-            full_article = (TextView) itemView.findViewById(R.id.full_article);
+            post_title = itemView.findViewById(R.id.post_title);
+            post_excerpt = itemView.findViewById(R.id.post_excerpt);
+            full_article = itemView.findViewById(R.id.full_article);
             if (isCardUi)
-                Comments_count = (TextView) itemView.findViewById(R.id.comments_count);
+                Comments_count = itemView.findViewById(R.id.comments_count);
         }
     }
 }

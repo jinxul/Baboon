@@ -22,7 +22,7 @@
         android:layout_alignParentRight="true"
         android:ellipsize="marquee"
         android:fadingEdge="horizontal"
-        android:maxLines="1"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView

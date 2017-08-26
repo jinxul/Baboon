@@ -27,7 +27,7 @@ public class MainMenu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_menu, container, false);
 
-        final NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
+        final NavigationView navigationView = view.findViewById(R.id.nav_view);
         final int[] ids = {R.id.angular, R.id.vagrant, R.id.laravel, R.id.jq, R.id.php,
                 R.id.bootstrap, R.id.ruby_on_rails, R.id.express, R.id.symfony};
         final Menu menu = navigationView.getMenu();

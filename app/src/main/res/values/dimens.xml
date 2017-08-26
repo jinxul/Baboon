@@ -8,8 +8,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="cards_margin">4dp</dimen>
 
-    <dimen name="card_cover_height">100dp</dimen>
-
 
     <dimen name="parallax_image_height">180dp</dimen>
 
