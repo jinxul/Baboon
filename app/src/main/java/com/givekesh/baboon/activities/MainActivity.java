@@ -342,6 +342,9 @@ public class MainActivity extends AppCompatActivity implements Interfaces.Volley
         FragmentManager fm = getSupportFragmentManager();
         MainMenu mainMenu = (MainMenu) fm.findFragmentById(R.id.id_container_menu);
 
+        if (mainMenu != null && mainMenu.isAdded())
+            return;
+
         fm.beginTransaction().add(R.id.id_container_menu,
                 mainMenu != null ? mainMenu : new MainMenu())
                 .commit();
