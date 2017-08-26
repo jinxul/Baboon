@@ -8,8 +8,7 @@ import com.android.volley.VolleyError;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.databind.type.SimpleType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comments;
@@ -81,7 +80,8 @@ public class FeedProvider {
 
             @Override
             public JavaType getReturnType() {
-                return CollectionType.construct(ArrayList.class, SimpleType.construct(Posts.class));
+                return TypeFactory.defaultInstance().constructCollectionType(
+                        ArrayList.class, TypeFactory.defaultInstance().constructType(Posts.class));
             }
         }));
 
@@ -121,7 +121,7 @@ public class FeedProvider {
 
             @Override
             public JavaType getReturnType() {
-                return SimpleType.construct(Posts.class);
+                return TypeFactory.defaultInstance().constructType(Posts.class);
             }
         }));
     }
@@ -158,7 +158,8 @@ public class FeedProvider {
 
             @Override
             public JavaType getReturnType() {
-                return CollectionType.construct(ArrayList.class, SimpleType.construct(Comments.class));
+                return TypeFactory.defaultInstance().constructCollectionType(
+                        ArrayList.class, TypeFactory.defaultInstance().constructType(Comments.class));
             }
         }));
     }
@@ -179,7 +180,8 @@ public class FeedProvider {
         try {
             String json = getJsonString(page);
             ObjectMapper mapper = new ObjectMapper();
-            JavaType javaType = CollectionType.construct(ArrayList.class, SimpleType.construct(Posts.class));
+            JavaType javaType = TypeFactory.defaultInstance().constructCollectionType(
+                    ArrayList.class, TypeFactory.defaultInstance().constructType(Posts.class));
             return mapper.readValue(json, javaType);
         } catch (Exception ignored) {
         }
