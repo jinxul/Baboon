@@ -26,7 +26,7 @@
             android:layout_height="125dp"
             android:layout_above="@id/splash"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher_round" />
 
         <include
             layout="@layout/loading"
