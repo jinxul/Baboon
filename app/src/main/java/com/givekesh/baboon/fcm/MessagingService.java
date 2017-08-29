@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 
+import com.givekesh.baboon.BuildConfig;
 import com.givekesh.baboon.activities.MainActivity;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Utils;
@@ -22,10 +23,10 @@ public class MessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Utils utils = new Utils(this);
         if (remoteMessage.getData().containsKey("new_version")) {
-            int market = 0;
             String version = remoteMessage.getData().get("new_version");
-            if (remoteMessage.getData().containsKey("market_id"))
-                market = Integer.parseInt(remoteMessage.getData().get("market_id"));
+            int market = remoteMessage.getData().containsKey("market_id") ?
+                    Integer.parseInt(remoteMessage.getData().get("market_id")) :
+                    BuildConfig.MARKET_ID;
 
             if (utils.shouldNotify("notifications_new_version") &&
                     utils.isUpdate(version))
@@ -34,6 +35,8 @@ public class MessagingService extends FirebaseMessagingService {
                                 version,
                                 utils.getMarketName(market)),
                         getString(R.string.new_version_title), getString(R.string.channel_id_new_version));
+
+
         } else {
             if (utils.shouldNotify("notifications_new_post"))
                 sendNotification(new Intent(this, MainActivity.class),
