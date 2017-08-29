@@ -39,6 +39,10 @@ android {
             dimension "market"
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.resValue "string", "appInfo", "baboon v" + variant.versionName
+    }
 }
 
 dependencies {
