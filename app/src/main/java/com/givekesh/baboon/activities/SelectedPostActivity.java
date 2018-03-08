@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
@@ -78,11 +79,13 @@ public class SelectedPostActivity extends AppCompatActivity implements Observabl
         setUseTextAutoSize();
         content.loadDataWithBaseURL("file:///android_asset/", getHtmlData(), "text/html", "UTF-8", null);
 
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .error(R.mipmap.ic_launcher);
+
         Glide.with(this)
                 .load(feed.getContentImage())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.mipmap.ic_launcher)
-                .crossFade()
+                .apply(requestOptions)
                 .into(mImageView);
 
         loadComments = findViewById(R.id.show_comments);

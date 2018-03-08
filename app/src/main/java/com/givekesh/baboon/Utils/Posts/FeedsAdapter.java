@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.activities.SelectedPostActivity;
 import com.givekesh.baboon.Utils.Posts.POJOS.Feeds;
@@ -103,6 +104,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @SuppressWarnings("deprecation")
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
         if (holder instanceof newHolder) {
             final Feeds feed = mFeeds.get(position);
@@ -116,7 +119,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (((newHolder) holder).author_avatar != null) {
                 Glide.with(mActivity)
                         .load(feed.getAuthor_avatar())
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .apply(requestOptions)
                         .into(((newHolder) holder).author_avatar);
             } else {
                 if (!((newHolder) holder).isCardUi)
@@ -158,7 +161,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             Glide.with(mActivity)
                     .load(feed.getContentImage())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .apply(requestOptions)
                     .into(((newHolder) holder).post_image);
 
             ((newHolder) holder).author_name.setText(feed.getAuthor());

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.givekesh.baboon.R;
 import com.givekesh.baboon.Utils.Comments.POJOS.Comment;
 
@@ -39,9 +40,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.holder
         holder.name.setText(comment.getDisplay_name());
         holder.content.setText(comment.getContent());
         holder.date.setText(comment.getDate());
+
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         Glide.with(mContext)
                 .load(comment.getAuthor_avatar())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .apply(requestOptions)
                 .into(holder.avatar);
     }
 
